@@ -1,0 +1,36 @@
+<style>
+    .table-container {
+        font-size: 12px;
+        overflow-x: auto;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+</style>
+
+<div class="table-container mt-3" *ngIf="students.length !== 0">
+    <table>
+        <thead>
+            <tr>
+                <th>Студенты</th>
+                <th *ngFor="let date of dates">{{ date.getDate() }}.{{ (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1 }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let student of students; let i = index">
+                <td>{{ student.fullName }}</td>
+                <td *ngFor="let date of dates; let j = index"
+                    (click)="navigateToCourseGroups()"> </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<button class="btn btn-primary mt-4" (click)="navigateToCourseGroups()">Назад</button>
