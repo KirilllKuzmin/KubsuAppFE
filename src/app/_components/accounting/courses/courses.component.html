@@ -1,0 +1,88 @@
+﻿<style>
+    .component-home-header {
+        display: flex;
+        height: 70px;
+        width: 99.5vw;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        align-items: center;
+        background-color: #fbfcfd;
+        box-shadow: 0px 4px 10px rgba(229, 235, 255, 0.5);
+        padding-left: 25%;
+    }
+
+    .card {
+        margin-top: 15px;
+        border: 1px solid rgba(199, 213, 255, 0.5);
+        width: 75vw;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .nav {
+        list-style: none; 
+        padding: 0; 
+        display: flex;
+    }
+
+    .nav .nav-item {
+        margin-top: 2.5px;
+        margin-bottom: 2.5px;
+    }
+
+    .nav .course-type {
+        background-color: rgba(189, 223, 255, 0.411);
+        font-size: 11px;
+        padding: 1px;
+        padding-left: 5px;
+        border-radius: 3px;
+    }
+
+    .nav .nav-link {
+        border: 1px solid rgba(199, 213, 255, 0.5);
+        border-radius: 4px;
+        padding: 10px;
+        margin: 3px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .nav .nav-link:hover {
+        box-shadow: 0px 4px 15px rgba(136, 144, 173, 0.5);
+    }
+
+    .nav .nav-div {
+        box-shadow: 10px;
+    }
+
+    .back-button-header {
+        background: none;
+        border: none;
+    }
+</style>
+
+<div class="component-home-header">
+    <h3><button class="back-button-header">Перподаваемые дисциплины</button></h3>
+    <nav class="navbar navbar-expand-lg bg-white"></nav>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="container">
+            <ul class="nav flex-column">
+                <li class="nav-item" *ngFor="let course of courses; let i = index">
+                    <div class="nav-div">
+                        <a class="nav-link rounded-2 text-black" 
+                            [ngClass]="{'active': i === 0}"
+                            (click)="navigateToCourseGroups(course.id)">
+                                <div class="course-type">{{ course.courseType.name }}</div>
+                                <div class="course-name">{{ course.name }}</div>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

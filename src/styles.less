@@ -1,3 +1,29 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+
+    scrollbar-width: thin;
+    scrollbar-color: #d6eaff transparent; 
+
+    background-color: #f8faff;
+}
+
+/* Определите стили для полосы прокрутки */
+body::-webkit-scrollbar {
+    width: 8px; /* Ширина полосы прокрутки */
+    border-radius: 8px; /* Задайте округлые углы для полосы */
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #dadada; /* Цвет полосы прокрутки */
+    border-radius: 8px; /* Задайте округлые углы для полосы */
+}
+
+body::-webkit-scrollbar-track {
+    background-color: #f8faff; /* Цвет фона полосы прокрутки */
+}

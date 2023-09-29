@@ -1,8 +1,12 @@
 ﻿<style>
+    .navbar .nav-item {
+        margin: 0 10px;
+    }
+
     .navbar .nav-link.active {
-        background-color: transparent; /* Прозрачный фон */
-        border: none; /* Убираем стандартные границы */
-        position: relative; /* Позиционирование относительно родителя */
+        background-color: transparent; 
+        border: none; 
+        position: relative;
     }
 
     .navbar .nav-link.active::before {
@@ -18,17 +22,41 @@
 
     .navbar .btn {
         margin-left: auto;
+        margin-right: 25px;
+    }
+
+    .nav-panel {
+        box-shadow: 0px 5px 15px rgba(199, 213, 255, 0.5);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10000;
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .navbar-nav {
+        flex-grow: 1;
+        justify-content: center;
+    }
+
+    .container {
+        margin-top: 60px;
     }
 </style>
 
 <!-- nav -->
-<nav class="navbar navbar-expand-lg bg-light" style="font-size: 20px;" *ngIf="user">
-    <div class="navbar-nav col-md-8 offset-md-2">
-        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Расписание</a>
-        <a class="nav-item nav-link" routerLink="/accounting/courses" routerLinkActive="active" *ngIf="isLecturer">Журнал</a>
+<div class="nav-panel">
+    <nav class="navbar navbar-expand-lg bg-white" *ngIf="user" adjustHeight>
+        <img src="/assets/img/kubsu2.jpg" class="img-fluid" style="width: 3%; margin-left: 10px;">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Главная</a>
+            <a class="nav-item nav-link" routerLink="/accounting/courses" routerLinkActive="active" *ngIf="isLecturer">Журнал</a>
+        </div>
         <button class="btn btn-link nav-item nav-link" (click)="logout()">{{user.username}}</button>
-    </div>
-</nav>
+    </nav>
+</div>
 
 <!-- main app container -->
 <div class="container">

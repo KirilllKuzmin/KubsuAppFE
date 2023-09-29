@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './home';
-import { AccountingGroupComponent } from './accounting/accounting-group/accounting-group.component';
-import { CoursesComponent } from './accounting/courses/courses.component';
-import { GroupsComponent } from './accounting/groups/groups.component';
-import { LoginComponent } from './login';
+import { HomeComponent } from './_components/home';
+import { AccountingGroupComponent } from './_components/accounting/accounting-group/accounting-group.component';
+import { CoursesComponent } from './_components/accounting/courses/courses.component';
+import { GroupsComponent } from './_components/accounting/groups/groups.component';
+import { LoginComponent } from './_components/login';
 import { AuthGuard } from './_helpers';
 import { Role } from './_models';
 

@@ -52,4 +52,8 @@ export class AccountingGroupComponent implements OnInit {
   navigateToCourseGroups() {
     this.router.navigate(['accounting/courses', this.courseId, 'groups']);
   }
+
+  navigateToLecturerCourses() {
+    this.router.navigate(['accounting/courses']);
+  }
 }

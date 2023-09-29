@@ -7,12 +7,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { HomeComponent } from './home';
-import { CoursesComponent } from './accounting/courses/courses.component';
-import { LoginComponent } from './login';
+import { HomeComponent } from './_components/home';
+import { CoursesComponent } from './_components/accounting/courses/courses.component';
+import { LoginComponent } from './_components/login';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GroupsComponent } from './accounting/groups/groups.component';
-import { AccountingGroupComponent } from './accounting/accounting-group/accounting-group.component';
+import { GroupsComponent } from './_components/accounting/groups/groups.component';
+import { AccountingGroupComponent } from './_components/accounting/accounting-group/accounting-group.component';
+import { AdjustHeightDirective } from './_helpers/adjust-height.directive';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { AccountingGroupComponent } from './accounting/accounting-group/accounti
         CoursesComponent,
         LoginComponent,
         GroupsComponent,
-        AccountingGroupComponent
+        AccountingGroupComponent,
+        AdjustHeightDirective
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
