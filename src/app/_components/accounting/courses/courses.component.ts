@@ -5,7 +5,11 @@ import { first } from 'rxjs/operators';
 import { Course } from '@app/_models';
 import { CoursesService } from '@app/_services/accounting/courses.service';
 
-@Component({ templateUrl: 'courses.component.html' })
+@Component({ 
+    selector: 'app-courses',
+    templateUrl: './courses.component.html',
+    styleUrls: ['./courses.component.less']
+})
 export class CoursesComponent {
     loading = false;
     courses: Course[] = [];

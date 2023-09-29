@@ -3,7 +3,11 @@
 import { AuthenticationService } from './_services';
 import { User, Role } from './_models';
 
-@Component({ selector: 'app-root', templateUrl: 'app.component.html' })
+@Component({ 
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.less']
+})
 export class AppComponent {
     user?: User | null;
 
