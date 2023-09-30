@@ -4,6 +4,7 @@
         <img src="/assets/img/kubsu2.jpg" class="img-fluid" style="width: 3%; margin-left: 10px;">
         <div class="navbar-nav">
             <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Главная</a>
+            <a class="nav-item nav-link" routerLink="/timetable" routerLinkActive="active">Расписание</a>
             <a class="nav-item nav-link" routerLink="/accounting/courses" routerLinkActive="active" *ngIf="isLecturer">Журнал</a>
         </div>
         <button class="btn btn-link nav-item nav-link" (click)="logout()">{{user.username}}</button>

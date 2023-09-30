@@ -1,6 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -14,15 +14,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupsComponent } from './_components/accounting/groups/groups.component';
 import { AccountingGroupComponent } from './_components/accounting/accounting-group/accounting-group.component';
 import { AdjustHeightDirective } from './_helpers/adjust-height.directive';
+import { FilterStudentComponent } from './_components/accounting/accounting-group/filter-student//filter-student.component';
+import { FilterStudentPipe } from './_pipes/filter-student.pipe';
 
 @NgModule({
     imports: [
         BrowserModule,
         ReactiveFormsModule,
+        FormsModule,
         HttpClientModule,
-        AppRoutingModule
-,
-        BrowserAnimationsModule    ],
+        AppRoutingModule,
+        BrowserAnimationsModule    
+    ],
     declarations: [
         AppComponent,
         HomeComponent,
@@ -30,7 +33,9 @@ import { AdjustHeightDirective } from './_helpers/adjust-height.directive';
         LoginComponent,
         GroupsComponent,
         AccountingGroupComponent,
-        AdjustHeightDirective
+        AdjustHeightDirective,
+        FilterStudentComponent,
+        FilterStudentPipe
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

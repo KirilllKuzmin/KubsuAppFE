@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 
@@ -17,6 +17,9 @@ export class AccountingGroupComponent implements OnInit {
   courseId: number = 0;
   groupId: number = 0;
   dates: Date[] = [];
+  filteredStudents: Student[] = [];
+  isFilterOpen: boolean = false;
+  searchStudent: string = '';
 
   constructor(
     private accountingGroupService: AccountingGroupService,
@@ -47,6 +50,40 @@ export class AccountingGroupComponent implements OnInit {
         this.loading = false;
         this.dates = dates.map(dateString => new Date(dateString));
       });
+  }
+
+  toggleFilter() {
+    this.isFilterOpen = !this.isFilterOpen;
+  }
+
+  filterStudents(selectedStudents: Student[]) {
+    this.filteredStudents = selectedStudents;
+    this.isFilterOpen = false;
+  }
+
+  @HostListener('window:mouseup', ['$event'])
+  onMouseUp(event: MouseEvent) {
+    // Завершение изменения размера колонки
+    this.resizing = false;
+  }
+
+  @HostListener('mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    if (this.resizing) {
+      const newWidth = this.initialWidth + (event.clientX - this.initialX);
+      this.columnWidth = newWidth + 'px';
+    }
+  }
+
+  resizing = false;
+  initialX: number = 0;
+  initialWidth: number = 0;
+  columnWidth: string = '100px'; 
+
+  startResize(event: MouseEvent, width: number) {
+    this.resizing = true;
+    this.initialX = event.clientX;
+    this.initialWidth = width;
   }
 
   navigateToCourseGroups() {

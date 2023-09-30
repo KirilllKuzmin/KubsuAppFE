@@ -1,0 +1,14 @@
+<div *ngIf="students.length > 0">
+    <div>
+        <h3>Выберите студентов:</h3>
+        <ul>
+            <li *ngFor="let student of students">
+            <label>
+                <input type="checkbox" [checked]="selectedStudents.has(student.userId)" (change)="toggleStudentSelection(student)"/>
+                {{ student.fullName }}
+            </label>
+            </li>
+        </ul>
+    </div>
+    <button (click)="applyFilter()">Применить</button>
+</div>
