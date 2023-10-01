@@ -46,7 +46,7 @@ export class AccountingGroupComponent implements OnInit {
         this.students = students;
       });
       
-      this.accountingGroupService.getCourseDates(this.courseId).pipe(first()).subscribe(dates => {
+      this.accountingGroupService.getCourseDates(this.courseId, this.groupId).pipe(first()).subscribe(dates => {
         this.loading = false;
         this.dates = dates.map(dateString => new Date(dateString));
       });
