@@ -5,13 +5,12 @@ import { environment } from '@environments/environment';
 import { Student } from '@app/_models/student';
 import { User } from '@app/_models';
 import { UserService } from '@app/_services';
-import { Subscription, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountingGroupService {
-  constructor(private http: HttpClient, private userService: UserService) { }
+  constructor(private http: HttpClient) { }
 
   user: User;
 
@@ -20,14 +19,6 @@ export class AccountingGroupService {
   }
 
   getCourseDates(courseId: number, groupId: number) {
-    const userObservable: Observable<User> = this.userService.getById();
-
-      let userSubscribtion: Subscription;
-
-      userSubscribtion = userObservable.subscribe((userSubs: User) => {
-        this.user = userSubs;
-      });
-
-    return this.http.get<string[]>(`${environment.apiUrlAcc}/accounting/lecturers/${this.user.id}/courses/${courseId}/groups/${groupId}/dates`);
-}
+    return this.http.get<string[]>(`${environment.apiUrlAcc}/accounting/lecturers/courses/${courseId}/groups/${groupId}/dates`);
+  }
 }
