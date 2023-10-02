@@ -40,12 +40,12 @@
                         <td>{{ student.fullName }}</td>
                         <td *ngFor="let date of dates; let j = index"
                             contenteditable="true"
-                            (input)="onEnterKey($event, student, date, i, j)">{{ editedValue }}</td>
+                            (input)="onEnterKey($event, student, date, i, j)">{{ hasUserIdAndDate(student.userId, date) }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <button class="back-button mt-4" (click)="navigateToCourseGroups()">Назад</button>
+        <!-- <button class="back-button" (click)="navigateToCourseGroups()">Назад</button>  -->
         <button class="send-button mt-4" (click)="sendAbsences()">Отправить</button>
     </div>
 </div>

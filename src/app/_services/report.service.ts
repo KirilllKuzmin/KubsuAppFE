@@ -12,4 +12,8 @@ export class ReportService {
   printTestReport() {  
     return this.http.get(`${environment.apiUrlRep}/generate-report`, { responseType: 'blob'});
   }
+
+  generateDocxReport() {
+    return this.http.get(`${environment.apiUrlRep}/generate-docx-report`, { responseType: 'blob' });
+  }
 }

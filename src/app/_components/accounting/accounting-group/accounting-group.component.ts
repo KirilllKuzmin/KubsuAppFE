@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 
 import { Student } from '@app/_models/student';
 import { AccountingGroupService } from '@app/_services/accounting/accounting-group.service';
+import { Absence } from '@app/_models/dto/absence';
 
 @Component({
   selector: 'app-accounting-group',
@@ -20,6 +21,7 @@ export class AccountingGroupComponent implements OnInit {
   filteredStudents: Student[] = [];
   isFilterOpen: boolean = false;
   searchStudent: string = '';
+  absences: Absence[] = [];
 
   constructor(
     private accountingGroupService: AccountingGroupService,
@@ -50,6 +52,21 @@ export class AccountingGroupComponent implements OnInit {
         this.loading = false;
         this.dates = dates.map(dateString => new Date(dateString));
       });
+
+      this.accountingGroupService.getAbsencesStudent(this.courseId, this.groupId).pipe(first()).subscribe(absences => {
+        this.loading = false;
+        this.absences = absences;
+      });
+  }
+
+  hasUserIdAndDate(userId: number, absenceDate: Date) {
+
+    const hasStudentWithIdAndDate = this.absences.some(item => item.student.userId === userId && new Date(item.absenceDate).toString() === absenceDate.toString());
+
+    if (hasStudentWithIdAndDate) {
+      return "Н";
+    }
+    return null;
   }
 
   toggleFilter() {
@@ -86,20 +103,30 @@ export class AccountingGroupComponent implements OnInit {
     this.initialWidth = width;
   }
 
-  editedValue: string[][];
-  studentId: number;
-  date: Date;
+  editedData: any[] = [];
 
   onEnterKey(event: any, student: Student, date: Date, i: number, j: number) {
-      this.editedValue[i][j] = event.target.innerText;
+    console.log(event);
+    console.log(event.target.innerText);
 
-      this.studentId = student.userId;
+    const modifiedValue = event.target.innerText;
 
-      this.date = date;
+    this.editedData.push({
+      student,
+      date,
+      value: modifiedValue
+    });
+
+    console.log(this.editedData);
   }
 
   sendAbsences() {
-    this.accountingGroupService.setAbsence(this.studentId, this.courseId, this.date, this.editedValue[1][1]);
+    console.log("Отправляем: ");
+
+    for (let index = 0; index < this.editedData.length; index++) {
+      console.log(this.editedData[index].value);
+      this.accountingGroupService.setAbsence(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
+    }
   }
 
   isModalOpen = false;
