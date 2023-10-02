@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { Student } from '@app/_models/student';
 import { User } from '@app/_models';
-import { UserService } from '@app/_services';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +19,9 @@ export class AccountingGroupService {
 
   getCourseDates(courseId: number, groupId: number) {
     return this.http.get<string[]>(`${environment.apiUrlAcc}/accounting/lecturers/courses/${courseId}/groups/${groupId}/dates`);
+  }
+
+  setAbsence(studentId: number, courseId: number, absenceDate: Date, absenceTypeId: string) {
+    return this.http.post<string>(`${environment.apiUrlAcc}/accounting/lecturers/setAbsences`, { studentId, courseId, absenceDate, absenceTypeId });
   }
 }

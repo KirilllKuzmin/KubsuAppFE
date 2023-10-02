@@ -19,6 +19,10 @@ export class AppComponent {
         return this.user?.roles.includes(Role.Lecturer);
     }
 
+    get isModerator() {
+        return this.user?.roles.includes(Role.Moderator);
+    }
+
     logout() {
         this.authenticationService.logout();
     }

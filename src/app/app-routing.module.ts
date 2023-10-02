@@ -5,6 +5,7 @@ import { HomeComponent } from './_components/home';
 import { AccountingGroupComponent } from './_components/accounting/accounting-group/accounting-group.component';
 import { CoursesComponent } from './_components/accounting/courses/courses.component';
 import { GroupsComponent } from './_components/accounting/groups/groups.component';
+import { ReportComponent } from './_components/report/report.component';
 import { LoginComponent } from './_components/login';
 import { AuthGuard } from './_helpers';
 import { Role } from './_models';
@@ -32,6 +33,12 @@ const routes: Routes = [
         component: AccountingGroupComponent,
         canActivate: [AuthGuard],
         data: { roles: [Role.Lecturer] }
+    },
+    {
+        path: 'reports',
+        component: ReportComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [Role.Lecturer, Role.Moderator] }
     },
     {
         path: 'login',

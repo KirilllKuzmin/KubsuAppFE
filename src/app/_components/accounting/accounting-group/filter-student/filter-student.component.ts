@@ -7,24 +7,12 @@ import { Student } from '@app/_models/student';
   styleUrls: ['./filter-student.component.less']
 })
 export class FilterStudentComponent {
-  @Input() students: Student[] = [];
-  @Output() filterChange = new EventEmitter<Student[]>();
+  selectedReason: string;
 
-  selectedStudents: Set<number> = new Set<number>();
-
-  toggleStudentSelection(student: Student) {
-    if (this.selectedStudents.has(student.userId)) {
-      this.selectedStudents.delete(student.userId);
-    } else {
-      this.selectedStudents.add(student.userId);
-    }
-  }
-
-  applyFilter() {
-    const selectedStudentsArray: Student[] = this.students.filter(student =>
-      this.selectedStudents.has(student.userId)
-    );
-
-    this.filterChange.emit(selectedStudentsArray);
+  apply() {
+    // Здесь вы можете отправить выбранную причину отсутствия
+    // Например, вы можете сохранить ее в переменной и передать в родительский компонент или сервис
+    // Для простоты, можно просто закрыть всплывающее окно
+    // Закрытие окна будет зависеть от вашей реализации
   }
 }

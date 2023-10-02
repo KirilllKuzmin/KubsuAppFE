@@ -16,6 +16,7 @@ import { AccountingGroupComponent } from './_components/accounting/accounting-gr
 import { AdjustHeightDirective } from './_helpers/adjust-height.directive';
 import { FilterStudentComponent } from './_components/accounting/accounting-group/filter-student//filter-student.component';
 import { FilterStudentPipe } from './_pipes/filter-student.pipe';
+import { ReportComponent } from './_components/report/report.component';
 
 @NgModule({
     imports: [
@@ -35,7 +36,8 @@ import { FilterStudentPipe } from './_pipes/filter-student.pipe';
         AccountingGroupComponent,
         AdjustHeightDirective,
         FilterStudentComponent,
-        FilterStudentPipe
+        FilterStudentPipe,
+        ReportComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

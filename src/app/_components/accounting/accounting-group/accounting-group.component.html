@@ -38,11 +38,13 @@
                     <tr *ngFor="let student of students | filterStudent: searchStudent; let i = index">
                         <td>{{ student.fullName }}</td>
                         <td *ngFor="let date of dates; let j = index"
-                            (click)="navigateToCourseGroups()"> </td>
+                            contenteditable="true"
+                            (input)="onEnterKey($event, student, date, i, j)">{{ editedValue }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <button class="back-button mt-4" (click)="navigateToCourseGroups()">Назад</button>
+        <!-- <button class="send-button mt-4" (click)="sendAbsences()">Отправить</button> -->
     </div>
 </div>

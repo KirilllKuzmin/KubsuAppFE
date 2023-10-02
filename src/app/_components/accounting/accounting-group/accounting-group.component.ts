@@ -86,6 +86,22 @@ export class AccountingGroupComponent implements OnInit {
     this.initialWidth = width;
   }
 
+  editedValue: string[][];
+  studentId: number;
+  date: Date;
+
+  onEnterKey(event: any, student: Student, date: Date, i: number, j: number) {
+      this.editedValue[i][j] = event.target.innerText;
+
+      this.studentId = student.userId;
+
+      this.date = date;
+  }
+
+  sendAbsences() {
+    this.accountingGroupService.setAbsence(this.studentId, this.courseId, this.date, this.editedValue[1][1]);
+  }
+
   navigateToCourseGroups() {
     this.router.navigate(['accounting/courses', this.courseId, 'groups']);
   }
