@@ -102,6 +102,17 @@ export class AccountingGroupComponent implements OnInit {
     this.accountingGroupService.setAbsence(this.studentId, this.courseId, this.date, this.editedValue[1][1]);
   }
 
+  isModalOpen = false;
+
+  openModal() {
+      console.log("press");
+      this.isModalOpen = true;
+  }
+
+  closeModal() {
+      this.isModalOpen = false;
+  }
+
   navigateToCourseGroups() {
     this.router.navigate(['accounting/courses', this.courseId, 'groups']);
   }

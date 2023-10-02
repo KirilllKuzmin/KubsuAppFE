@@ -14,6 +14,7 @@
     [students]="students"
     (filterChange)="filterStudents($event)"
 ></app-filter-student> -->
+<app-filter-student *ngIf="isModalOpen" (closeModalEvent)="closeModal()">123</app-filter-student>
 
 <div class="card">
     <div class="card-body">
@@ -25,7 +26,7 @@
                 <thead>
                     <tr>
                         <th class="column-student" 
-                            (click)="toggleFilter()" 
+                            (click)="openModal()" 
                             [style.width]="columnWidth" 
                             (mousedown)="startResize($event, initialWidth)"
                         >Студенты <i class="fas fa-filter"></i></th>
@@ -45,6 +46,6 @@
             </table>
         </div>
         <button class="back-button mt-4" (click)="navigateToCourseGroups()">Назад</button>
-        <!-- <button class="send-button mt-4" (click)="sendAbsences()">Отправить</button> -->
+        <button class="send-button mt-4" (click)="sendAbsences()">Отправить</button>
     </div>
 </div>

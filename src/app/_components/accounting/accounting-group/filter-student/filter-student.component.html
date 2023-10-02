@@ -1,10 +1,6 @@
 <div class="modal">
-    <h1>Выберите причину отсутствия:</h1>
-    <label>
-      <input type="radio" name="reason" [(ngModel)]="selectedReason" value="не-уважительная"> Не уважительная
-    </label>
-    <label>
-      <input type="radio" name="reason" [(ngModel)]="selectedReason" value="болезнь"> Болезнь
-    </label>
-    <button (click)="apply()">Применить</button>
+  <div class="modal-content">
+      <h1>Выберите причину отсутствия:</h1>
+      <button (click)="closeModal()">Закрыть</button>
   </div>
+ </div>

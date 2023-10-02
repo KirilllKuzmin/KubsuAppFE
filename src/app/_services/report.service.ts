@@ -10,6 +10,6 @@ export class ReportService {
   constructor(private http: HttpClient) {}
 
   printTestReport() {  
-    return this.http.get(`${environment.apiUrlAcc}/accounting/generate-report`, { responseType: 'blob'});
+    return this.http.get(`${environment.apiUrlRep}/generate-report`, { responseType: 'blob'});
   }
 }

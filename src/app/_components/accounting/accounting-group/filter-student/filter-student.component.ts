@@ -7,12 +7,9 @@ import { Student } from '@app/_models/student';
   styleUrls: ['./filter-student.component.less']
 })
 export class FilterStudentComponent {
-  selectedReason: string;
+  @Output() closeModalEvent = new EventEmitter<boolean>();
 
-  apply() {
-    // Здесь вы можете отправить выбранную причину отсутствия
-    // Например, вы можете сохранить ее в переменной и передать в родительский компонент или сервис
-    // Для простоты, можно просто закрыть всплывающее окно
-    // Закрытие окна будет зависеть от вашей реализации
+  closeModal() {
+    this.closeModalEvent.emit(true);
   }
 }

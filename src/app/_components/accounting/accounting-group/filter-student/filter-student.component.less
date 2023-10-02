@@ -1,3 +1,36 @@
+/* Стиль для модального окна (затемнение фона и центрирование содержимого) */
 .modal {
-    z-index: 100000;
-}
+    display: block; /* Модальное окно по умолчанию скрыто */
+    position: fixed;
+    top: 50%;
+    left: 0;
+    width: 50%;
+    height: 50%;
+    background-color: rgba(0, 0, 0, 0.5); /* Затемнение фона */
+    z-index: 1000; /* Перекрывает другие элементы */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Стиль для содержимого модального окна */
+  .modal-content {
+    background-color: #fff; /* Цвет фона */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Тень */
+  }
+  
+  /* Стиль для кнопки закрытия */
+  .modal-content button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  
+  /* Стиль для кнопки закрытия при наведении */
+  .modal-content button:hover {
+    background-color: #555;
+  }
