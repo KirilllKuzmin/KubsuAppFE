@@ -61,10 +61,16 @@ export class AccountingGroupComponent implements OnInit {
 
   hasUserIdAndDate(userId: number, absenceDate: Date) {
 
-    const hasStudentWithIdAndDate = this.absences.some(item => item.student.userId === userId && new Date(item.absenceDate).toString() === absenceDate.toString());
+    const hasStudentWithIdAndDateO = this.absences.some(item => item.student.userId === userId && new Date(item.absenceDate).toString() === absenceDate.toString() && item.absenceType.id === 1);
+    const hasStudentWithIdAndDateB = this.absences.some(item => item.student.userId === userId && new Date(item.absenceDate).toString() === absenceDate.toString() && item.absenceType.id === 2);
+    const hasStudentWithIdAndDateN = this.absences.some(item => item.student.userId === userId && new Date(item.absenceDate).toString() === absenceDate.toString() && item.absenceType.id === 3);
 
-    if (hasStudentWithIdAndDate) {
+    if (hasStudentWithIdAndDateN) {
       return "Н";
+    } else if (hasStudentWithIdAndDateB) {
+      return "Б";
+    } else if (hasStudentWithIdAndDateO) {
+      return "О";
     }
     return null;
   }
@@ -125,6 +131,13 @@ export class AccountingGroupComponent implements OnInit {
 
     for (let index = 0; index < this.editedData.length; index++) {
       console.log(this.editedData[index].value);
+      if (this.editedData[index].value === "О") {
+        this.editedData[index].value = 1
+      } else if (this.editedData[index].value === "Б") {
+        this.editedData[index].value = 2
+      } else if (this.editedData[index].value === "Н") {
+        this.editedData[index].value = 3
+      }
       this.accountingGroupService.setAbsence(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
     }
   }
