@@ -17,6 +17,7 @@ import { AdjustHeightDirective } from './_helpers/adjust-height.directive';
 import { FilterStudentComponent } from './_components/accounting/accounting-group/filter-student//filter-student.component';
 import { FilterStudentPipe } from './_pipes/filter-student.pipe';
 import { ReportComponent } from './_components/report/report.component';
+import { WorkTypeComponent } from './_components/accounting/accounting-group/work-type/work-type.component';
 
 @NgModule({
     imports: [
@@ -37,7 +38,8 @@ import { ReportComponent } from './_components/report/report.component';
         AdjustHeightDirective,
         FilterStudentComponent,
         FilterStudentPipe,
-        ReportComponent
+        ReportComponent,
+        WorkTypeComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -14,7 +14,8 @@
     [students]="students"
     (filterChange)="filterStudents($event)"
 ></app-filter-student> -->
-<app-filter-student *ngIf="isModalOpen" (closeModalEvent)="closeModal()">123</app-filter-student>
+<app-filter-student *ngIf="isModalOpen" (closeModalEvent)="closeModal()"></app-filter-student>
+<app-work-type *ngIf="isModalOpenWorkType" (closeModalEvent)="closeModalWorkType()"></app-work-type>
 
 <div class="card">
     <div class="card-body">
@@ -30,7 +31,7 @@
                             [style.width]="columnWidth" 
                             (mousedown)="startResize($event, initialWidth)"
                         >Студенты <i class="fas fa-filter"></i></th>
-                        <th *ngFor="let date of dates" class="column-dates">
+                        <th *ngFor="let date of dates" class="column-dates" (click)="openModalWorkType()">
                             {{ date.getDate() < 10 ? '0' + date.getDate() : date.getDate() }}.{{ (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1 }}
                         </th>
                     </tr>
@@ -46,6 +47,6 @@
             </table>
         </div>
         <!-- <button class="back-button" (click)="navigateToCourseGroups()">Назад</button>  -->
-        <button class="send-button mt-4" (click)="sendAbsences()">Отправить</button>
+        <button class="send-button mt-4" *ngIf="students.length !== 0" (click)="sendAbsences()">Отправить</button>
     </div>
 </div>
