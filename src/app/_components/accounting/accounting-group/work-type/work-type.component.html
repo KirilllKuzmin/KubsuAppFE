@@ -1,6 +1,12 @@
 <div class="modal">
     <div class="modal-content">
         <h3>Выберите тип проводимых работ: </h3>
+        <div *ngFor="let workType of workTypes">
+            <label>
+                <input type="radio" [(ngModel)]="selectedWorkType" [value]="workType.id"> {{ workType.name }}
+            </label>
+        </div>
+        <button (click)="sendWorkType()">Отправить</button>
         <button (click)="closeModal()">Закрыть</button>
     </div>
    </div>

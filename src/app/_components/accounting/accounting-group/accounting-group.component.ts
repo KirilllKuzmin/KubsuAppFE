@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 
 import { Student } from '@app/_models/student';
 import { AccountingGroupService } from '@app/_services/accounting/accounting-group.service';
+import { WorkTypeService } from '@app/_services/accounting/work-type.service';
 import { Absence } from '@app/_models/dto/absence';
 
 @Component({
@@ -26,7 +27,8 @@ export class AccountingGroupComponent implements OnInit {
   constructor(
     private accountingGroupService: AccountingGroupService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private workTypeService: WorkTypeService
   ) { }
 
   ngOnInit() {
@@ -155,8 +157,9 @@ export class AccountingGroupComponent implements OnInit {
 
   isModalOpenWorkType = false;
 
-  openModalWorkType() {
+  openModalWorkType(date: Date) {
       console.log("press");
+      this.workTypeService.setWorkDate(date);
       this.isModalOpenWorkType = true;
   }
 

@@ -31,7 +31,7 @@
                             [style.width]="columnWidth" 
                             (mousedown)="startResize($event, initialWidth)"
                         >Студенты <i class="fas fa-filter"></i></th>
-                        <th *ngFor="let date of dates" class="column-dates" (click)="openModalWorkType()">
+                        <th *ngFor="let date of dates" class="column-dates" (click)="openModalWorkType(date)">
                             {{ date.getDate() < 10 ? '0' + date.getDate() : date.getDate() }}.{{ (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1 }}
                         </th>
                     </tr>
