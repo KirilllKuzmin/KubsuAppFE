@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '@environments/environment';
 import { Student } from '@app/_models/student';
+import { WorkDates } from '@app/_models/dto/IWorkDates';
 import { User } from '@app/_models';
 import { catchError, tap } from 'rxjs';
 import { Absence } from '@app/_models/dto/absence';
@@ -34,5 +35,9 @@ export class AccountingGroupService {
     console.log(absenceTypeId);
     return this.http.post<string>(`${environment.apiUrlAcc}/accounting/lecturers/absences`, { studentId, courseId, absenceDate, absenceTypeId }).subscribe(response =>
       console.log(response))
+  }
+
+  getWorkDates(courseId: number, groupId: number) {
+    return this.http.get<WorkDates[]>(`${environment.apiUrlAcc}/accounting/lecturers/courses/${courseId}/groups/${groupId}/works`);
   }
 }

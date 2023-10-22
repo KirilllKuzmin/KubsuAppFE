@@ -1,8 +1,10 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 
 import { Student } from '@app/_models/student';
+import { WorkDates } from '@app/_models/dto/IWorkDates';
 import { AccountingGroupService } from '@app/_services/accounting/accounting-group.service';
 import { WorkTypeService } from '@app/_services/accounting/work-type.service';
 import { Absence } from '@app/_models/dto/absence';
@@ -23,6 +25,7 @@ export class AccountingGroupComponent implements OnInit {
   isFilterOpen: boolean = false;
   searchStudent: string = '';
   absences: Absence[] = [];
+  workDates: WorkDates[] = [];
 
   constructor(
     private accountingGroupService: AccountingGroupService,
@@ -45,20 +48,41 @@ export class AccountingGroupComponent implements OnInit {
         }
       });
 
-      this.accountingGroupService.getGroupStudents(this.groupId).pipe(first()).subscribe(students => {
-        this.loading = false;
-        this.students = students;
-      });
+      // this.accountingGroupService.getGroupStudents(this.groupId).pipe(first()).subscribe(students => {
+      //   this.loading = false;
+      //   this.students = students;
+      // });
       
-      this.accountingGroupService.getCourseDates(this.courseId, this.groupId).pipe(first()).subscribe(dates => {
-        this.loading = false;
-        this.dates = dates.map(dateString => new Date(dateString));
-      });
+      // this.accountingGroupService.getCourseDates(this.courseId, this.groupId).pipe(first()).subscribe(dates => {
+      //   this.loading = false;
+      //   this.dates = dates.map(dateString => new Date(dateString));
+      // });
 
-      this.accountingGroupService.getAbsencesStudent(this.courseId, this.groupId).pipe(first()).subscribe(absences => {
-        this.loading = false;
-        this.absences = absences;
-      });
+      // this.accountingGroupService.getAbsencesStudent(this.courseId, this.groupId).pipe(first()).subscribe(absences => {
+      //   this.loading = false;
+      //   this.absences = absences;
+      // });
+
+      // this.accountingGroupService.getWorkDates(this.courseId, this.groupId).pipe(first()).subscribe(workDates => {
+      //   this.loading = false;
+      //   this.workDates = workDates;
+      // });
+
+      const studentsRequest = this.accountingGroupService.getGroupStudents(this.groupId);
+      const timetableDatesRequest = this.accountingGroupService.getCourseDates(this.courseId, this.groupId);
+      const absenceDatesRequest = this.accountingGroupService.getAbsencesStudent(this.courseId, this.groupId);
+      const workDatesRequest = this.accountingGroupService.getWorkDates(this.courseId, this.groupId);
+
+      forkJoin([studentsRequest, timetableDatesRequest, absenceDatesRequest, workDatesRequest]).pipe(first()).subscribe(
+        ([students, dates, absences, workDates]) => {
+          this.loading = false;
+          this.students = students;
+          this.dates = dates.map(dateString => new Date(dateString));
+          this.absences = absences;
+          this.workDates = workDates;
+          console.log(workDates);
+        }
+      );
   }
 
   hasUserIdAndDate(userId: number, absenceDate: Date) {
@@ -142,6 +166,10 @@ export class AccountingGroupComponent implements OnInit {
       }
       this.accountingGroupService.setAbsence(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
     }
+  }
+
+  isWorkDate(date: Date): boolean {
+    return this.workDates.some(workDate => new Date(workDate.workDateTime).getTime() === date.getTime());
   }
 
   isModalOpen = false;

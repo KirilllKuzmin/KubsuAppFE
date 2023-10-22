@@ -30,6 +30,7 @@ export class WorkTypeComponent implements OnInit {
   }
 
   sendWorkType() {
+    this.closeModalEvent.emit(true);
     return null;
   }
 }
