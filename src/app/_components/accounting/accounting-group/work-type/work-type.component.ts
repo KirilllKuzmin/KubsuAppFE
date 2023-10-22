@@ -14,6 +14,8 @@ export class WorkTypeComponent implements OnInit {
   workTypes: TypeOfWork[] = [];
   selectedWorkType: number;
   workDate = this.workTypeService.getWorkDate();
+  courseId = this.workTypeService.getCourseId();
+  groupId = this.workTypeService.getGroupId();
 
   constructor(private workTypeService: WorkTypeService) {}
 
@@ -30,7 +32,7 @@ export class WorkTypeComponent implements OnInit {
   }
 
   sendWorkType() {
-    this.closeModalEvent.emit(true);
-    return null;
+    this.workTypeService.setWorkDates(this.courseId, this.groupId, this.selectedWorkType, this.workDate);
+    window.location.reload();
   }
 }

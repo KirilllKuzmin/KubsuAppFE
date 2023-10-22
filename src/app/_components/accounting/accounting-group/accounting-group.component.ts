@@ -166,6 +166,8 @@ export class AccountingGroupComponent implements OnInit {
       }
       this.accountingGroupService.setAbsence(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
     }
+    
+    window.location.reload();
   }
 
   isWorkDate(date: Date): boolean {
@@ -188,6 +190,8 @@ export class AccountingGroupComponent implements OnInit {
   openModalWorkType(date: Date) {
       console.log("press");
       this.workTypeService.setWorkDate(date);
+      this.workTypeService.setCourseId(this.courseId);
+      this.workTypeService.setGroupId(this.groupId);
       this.isModalOpenWorkType = true;
   }
 
