@@ -170,8 +170,23 @@ export class AccountingGroupComponent implements OnInit {
     window.location.reload();
   }
 
+  isEditable(date: Date): boolean {
+    const selectedDate = new Date(date);
+    const currentDate = new Date;
+
+    const daysDifference = Math.floor((currentDate.getTime() - selectedDate.getTime()) / (1000 * 60 * 60 * 24));
+
+    return daysDifference > 14;
+  }
+
   isWorkDate(date: Date): boolean {
     return this.workDates.some(workDate => new Date(workDate.workDateTime).getTime() === date.getTime());
+  }
+
+  getWorkType(date: Date) {
+    return this.workDates
+      .filter(workDate => new Date(workDate.workDateTime).getTime() === date.getTime())
+      .map(workDate => workDate.typeOfWork.name.split(" ").map(word => word.charAt(0).toUpperCase()).join(""));
   }
 
   isModalOpen = false;

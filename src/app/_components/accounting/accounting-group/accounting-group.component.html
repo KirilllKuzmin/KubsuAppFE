@@ -26,25 +26,27 @@
             <table>
                 <thead>
                     <tr>
+                        <!-- (click)="openModal()"  -->
                         <th class="column-student" 
-                            (click)="openModal()" 
                             [style.width]="columnWidth" 
+                            [ngStyle]="{'text-color': 'black', 'background-color': 'rgba(229, 235, 255, 0.5)'}"
                             (mousedown)="startResize($event, initialWidth)"
                         >Студенты <i class="fas fa-filter"></i></th>
                         <th *ngFor="let date of dates" 
-                            [ngStyle]="{'background-color': isWorkDate(date) ? '#fefddf' : 'white'}"
+                            [ngStyle]="{'background-color': isEditable(date) ? 'rgba(229, 235, 255, 0.5)' : 'white'}"
                             class="column-dates"
-                            (click)="openModalWorkType(date)">
-                            {{ date.getDate() < 10 ? '0' + date.getDate() : date.getDate() }}.{{ (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1 }}
+                            (click)="!isEditable(date) ? openModalWorkType(date) : null">
+                                {{ date.getDate() < 10 ? '0' + date.getDate() : date.getDate() }}.{{ (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1 }} <br>
+                                {{isWorkDate(date) ? getWorkType(date) : ''}}
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let student of students | filterStudent: searchStudent; let i = index">
+                    <tr *ngFor="let student of students | filterStudent: searchStudent; let i = index" [ngStyle]="{'background-color': 'rgba(229, 235, 255, 0.5)'}">
                         <td>{{ student.fullName }}</td>
                         <td *ngFor="let date of dates; let j = index"
-                            [ngStyle]="{'background-color': isWorkDate(date) ? '#fefddf' : 'white'}"
-                            contenteditable="true"
+                            [ngStyle]="{'background-color': isEditable(date) ? '' : 'white'}"
+                            [attr.contenteditable]="isEditable(date) ? 'false' : 'true'"
                             (input)="onEnterKey($event, student, date, i, j)">{{ hasUserIdAndDate(student.userId, date) }}</td>
                     </tr>
                 </tbody>
