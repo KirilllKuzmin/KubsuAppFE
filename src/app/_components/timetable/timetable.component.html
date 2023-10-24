@@ -33,7 +33,10 @@
                                         <a class="nav-link rounded-2 text-black"
                                             *ngIf="i < 1" 
                                             (click)="navigateToCourseGroups(timetable.course.id)">
-                                                <div class="course-type">{{ timetable.course.courseType.name }}</div>
+                                                <div class="course-type">
+                                                    {{ timetable.course.courseType.name }} 
+                                                    {{ timetable.classroom.classroomNumber !== "Не определена" ? timetable.classroom.classroomNumber : null }}
+                                                </div>
                                                 <div class="course-name">{{ timetable.course.name }}</div>
                                         </a>
                                     </div>

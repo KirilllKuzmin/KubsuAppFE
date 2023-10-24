@@ -2,6 +2,6 @@ import { AcademicBuilding } from "./IAcademicBuilding";
 
 export interface Classroom {
     id: number;
-    classroomNumber: number;
+    classroomNumber: string;
     academicBuilding: AcademicBuilding;
 }
