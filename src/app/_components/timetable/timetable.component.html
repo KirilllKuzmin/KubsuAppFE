@@ -1,0 +1,49 @@
+<div class="component-header">
+    <h3>
+        <button class="back-button-header" (click)="null">Расписание</button>
+    </h3>
+    <nav class="navbar navbar-expand-lg bg-white"></nav>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+
+        <div class="container">
+            <table>
+                <thead>
+                  <tr>
+                    <th>№</th>
+                    <th>Время</th>
+                    <th *ngFor="let day of weeklyDates" 
+                        [ngStyle]="{'background-color': isNowDay(day.date) ? 'rgba(229, 235, 255, 0.5)' : 'white'}">
+                        {{ day.dayOfWeek }} {{ day.date | date: 'dd.MM' }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let numTime of numTimeClassHeld">
+                    <td>{{ numTime.id }}</td>
+                    <td>{{ numTime.startTime | date: 'HH:mm' }} - {{ numTime.endTime | date: 'HH:mm' }}</td>
+                    <td *ngFor="let day of weeklyDates" [ngStyle]="{'background-color': isNowDay(day.date) ? 'rgba(229, 235, 255, 0.5)' : 'white'}">
+                        <div *ngFor="let timetable of filterTimetableByNumTimeAndDay(numTime, day); let i = index">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <div  class="nav-div">
+                                        <a class="nav-link rounded-2 text-black"
+                                            *ngIf="i < 1" 
+                                            (click)="navigateToCourseGroups(timetable.course.id)">
+                                                <div class="course-type">{{ timetable.course.courseType.name }}</div>
+                                                <div class="course-name">{{ timetable.course.name }}</div>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>        
+    </div>
+</div>

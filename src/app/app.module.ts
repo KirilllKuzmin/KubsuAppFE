@@ -18,6 +18,7 @@ import { FilterStudentComponent } from './_components/accounting/accounting-grou
 import { FilterStudentPipe } from './_pipes/filter-student.pipe';
 import { ReportComponent } from './_components/report/report.component';
 import { WorkTypeComponent } from './_components/accounting/accounting-group/work-type/work-type.component';
+import { TimetableComponent } from './_components/timetable/timetable.component';
 
 @NgModule({
     imports: [
@@ -39,7 +40,8 @@ import { WorkTypeComponent } from './_components/accounting/accounting-group/wor
         FilterStudentComponent,
         FilterStudentPipe,
         ReportComponent,
-        WorkTypeComponent
+        WorkTypeComponent,
+        TimetableComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

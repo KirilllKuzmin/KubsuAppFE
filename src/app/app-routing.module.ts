@@ -7,6 +7,7 @@ import { CoursesComponent } from './_components/accounting/courses/courses.compo
 import { GroupsComponent } from './_components/accounting/groups/groups.component';
 import { ReportComponent } from './_components/report/report.component';
 import { LoginComponent } from './_components/login';
+import { TimetableComponent } from './_components/timetable/timetable.component';
 import { AuthGuard } from './_helpers';
 import { Role } from './_models';
 
@@ -20,19 +21,24 @@ const routes: Routes = [
         path: 'accounting/courses',
         component: CoursesComponent,
         canActivate: [AuthGuard],
-        data: { roles: [Role.Lecturer] }
+        data: { roles: [Role.Lecturer, Role.Moderator] } //ВР, поскольку он на вход передает первую попавшуюся роль и не дает вход
     },
     {
         path: 'accounting/courses/:id/groups',
         component: GroupsComponent,
         canActivate: [AuthGuard],
-        data: { roles: [Role.Lecturer] }
+        data: { roles: [Role.Lecturer, Role.Moderator] } //ВР, поскольку он на вход передает первую попавшуюся роль и не дает вход
     },
     {
         path: 'accounting/courses/:courseId/groups/:groupId',
         component: AccountingGroupComponent,
         canActivate: [AuthGuard],
-        data: { roles: [Role.Lecturer] }
+        data: { roles: [Role.Lecturer, Role.Moderator] } //ВР, поскольку он на вход передает первую попавшуюся роль и не дает вход
+    },
+    {
+        path: 'timetable',
+        component: TimetableComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'reports',
