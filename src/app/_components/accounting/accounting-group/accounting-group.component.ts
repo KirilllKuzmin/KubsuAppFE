@@ -8,6 +8,7 @@ import { WorkDates } from '@app/_models/dto/IWorkDates';
 import { AccountingGroupService } from '@app/_services/accounting/accounting-group.service';
 import { WorkTypeService } from '@app/_services/accounting/work-type.service';
 import { Absence } from '@app/_models/dto/absence';
+import { Evaluation } from '@app/_models/dto/IEvaluation';
 
 @Component({
   selector: 'app-accounting-group',
@@ -25,7 +26,9 @@ export class AccountingGroupComponent implements OnInit {
   isFilterOpen: boolean = false;
   searchStudent: string = '';
   absences: Absence[] = [];
+  evaluations: Evaluation[] = [];
   workDates: WorkDates[] = [];
+  showButton: boolean = false;
 
   constructor(
     private accountingGroupService: AccountingGroupService,
@@ -48,39 +51,20 @@ export class AccountingGroupComponent implements OnInit {
         }
       });
 
-      // this.accountingGroupService.getGroupStudents(this.groupId).pipe(first()).subscribe(students => {
-      //   this.loading = false;
-      //   this.students = students;
-      // });
-      
-      // this.accountingGroupService.getCourseDates(this.courseId, this.groupId).pipe(first()).subscribe(dates => {
-      //   this.loading = false;
-      //   this.dates = dates.map(dateString => new Date(dateString));
-      // });
-
-      // this.accountingGroupService.getAbsencesStudent(this.courseId, this.groupId).pipe(first()).subscribe(absences => {
-      //   this.loading = false;
-      //   this.absences = absences;
-      // });
-
-      // this.accountingGroupService.getWorkDates(this.courseId, this.groupId).pipe(first()).subscribe(workDates => {
-      //   this.loading = false;
-      //   this.workDates = workDates;
-      // });
-
       const studentsRequest = this.accountingGroupService.getGroupStudents(this.groupId);
       const timetableDatesRequest = this.accountingGroupService.getCourseDates(this.courseId, this.groupId);
       const absenceDatesRequest = this.accountingGroupService.getAbsencesStudent(this.courseId, this.groupId);
+      const evaluationDatesRequest = this.accountingGroupService.getEvaluationsStudent(this.courseId, this.groupId);
       const workDatesRequest = this.accountingGroupService.getWorkDates(this.courseId, this.groupId);
 
-      forkJoin([studentsRequest, timetableDatesRequest, absenceDatesRequest, workDatesRequest]).pipe(first()).subscribe(
-        ([students, dates, absences, workDates]) => {
+      forkJoin([studentsRequest, timetableDatesRequest, absenceDatesRequest, evaluationDatesRequest, workDatesRequest]).pipe(first()).subscribe(
+        ([students, dates, absences, evaluations, workDates]) => {
           this.loading = false;
           this.students = students;
           this.dates = dates.map(dateString => new Date(dateString));
           this.absences = absences;
+          this.evaluations = evaluations;
           this.workDates = workDates;
-          console.log(workDates);
         }
       );
   }
@@ -91,12 +75,22 @@ export class AccountingGroupComponent implements OnInit {
     const hasStudentWithIdAndDateB = this.absences.some(item => item.student.userId === userId && new Date(item.absenceDate).toString() === absenceDate.toString() && item.absenceType.id === 2);
     const hasStudentWithIdAndDateN = this.absences.some(item => item.student.userId === userId && new Date(item.absenceDate).toString() === absenceDate.toString() && item.absenceType.id === 3);
 
+    const hasStudentWithIdAndDateEvaluation = this.evaluations
+      .some(item => item.student.userId === userId && new Date(item.evaluationDate).toString() === absenceDate.toString());
+
     if (hasStudentWithIdAndDateN) {
       return "Н";
     } else if (hasStudentWithIdAndDateB) {
       return "Б";
     } else if (hasStudentWithIdAndDateO) {
       return "О";
+    } else if (hasStudentWithIdAndDateEvaluation) {
+      let evaluationFiltered = this.evaluations
+        .filter(item => item.student.userId === userId && new Date(item.evaluationDate).toString() === absenceDate.toString())
+        .map(item => item.evaluationType.evaluationNumber);
+
+      const stringEvaluationFiltered: string = evaluationFiltered.join(', ');
+      return stringEvaluationFiltered;
     }
     return null;
   }
@@ -137,34 +131,51 @@ export class AccountingGroupComponent implements OnInit {
 
   editedData: any[] = [];
 
-  onEnterKey(event: any, student: Student, date: Date, i: number, j: number) {
+  onEnterKey(event: any, student: Student, date: Date, i: number, j: number, isWorkDate: boolean) {
     console.log(event);
     console.log(event.target.innerText);
+
+    if (!this.showButton) {
+      this.showButton = true;
+    }
 
     const modifiedValue = event.target.innerText;
 
     this.editedData.push({
       student,
       date,
-      value: modifiedValue
+      value: modifiedValue,
+      isWorkDate: this.isWorkDate(date)
     });
 
     console.log(this.editedData);
   }
 
+  //Очень не эффективно, переделать!!!
   sendAbsences() {
     console.log("Отправляем: ");
 
     for (let index = 0; index < this.editedData.length; index++) {
       console.log(this.editedData[index].value);
-      if (this.editedData[index].value === "О" || this.editedData[index].value === "о") {
-        this.editedData[index].value = 1
-      } else if (this.editedData[index].value === "Б" || this.editedData[index].value === "б") {
-        this.editedData[index].value = 2
-      } else if (this.editedData[index].value === "Н" || this.editedData[index].value === "н") {
-        this.editedData[index].value = 3
+      if (!this.editedData[index].isWorkDate) {
+
+        if (this.editedData[index].value === "О" || this.editedData[index].value === "о") {
+          this.editedData[index].value = 1
+          this.accountingGroupService.setAbsence(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
+        } else if (this.editedData[index].value === "Б" || this.editedData[index].value === "б") {
+          this.editedData[index].value = 2
+          this.accountingGroupService.setAbsence(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
+        } else if (this.editedData[index].value === "Н" || this.editedData[index].value === "н") {
+          this.editedData[index].value = 3
+          this.accountingGroupService.setAbsence(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
+        } else if (this.editedData[index].value === "") {
+          this.accountingGroupService.setAbsence(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
+        }
+      } else if (this.editedData[index].isWorkDate && this.editedData[index].value >= 2 && this.editedData[index].value <= 5) {
+        this.accountingGroupService.setEvaluation(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, parseInt(this.editedData[index].value) - 1);
+      } else if (this.editedData[index].isWorkDate && this.editedData[index].value === "") {
+        this.accountingGroupService.setEvaluation(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
       }
-      this.accountingGroupService.setAbsence(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
     }
     
     window.location.reload();

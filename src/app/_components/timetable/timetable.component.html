@@ -16,15 +16,16 @@
                     <th>№</th>
                     <th>Время</th>
                     <th *ngFor="let day of weeklyDates" 
+                        class="date-attribute"
                         [ngStyle]="{'background-color': isNowDay(day.date) ? 'rgba(229, 235, 255, 0.5)' : 'white'}">
-                        {{ day.dayOfWeek }} {{ day.date | date: 'dd.MM' }}
+                        {{ day.dayOfWeek }}&nbsp;{{ day.date | date: 'dd.MM' }}
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let numTime of numTimeClassHeld">
                     <td>{{ numTime.id }}</td>
-                    <td>{{ numTime.startTime | date: 'HH:mm' }} - {{ numTime.endTime | date: 'HH:mm' }}</td>
+                    <td >{{ numTime.startTime | date: 'HH:mm':'UTC' }}&nbsp;-&nbsp;{{ numTime.endTime | date: 'HH:mm':'UTC' }}</td>
                     <td *ngFor="let day of weeklyDates" [ngStyle]="{'background-color': isNowDay(day.date) ? 'rgba(229, 235, 255, 0.5)' : 'white'}">
                         <div *ngFor="let timetable of filterTimetableByNumTimeAndDay(numTime, day); let i = index">
                             <ul class="nav flex-column">
@@ -37,7 +38,7 @@
                                                     {{ timetable.course.courseType.name }} 
                                                     {{ timetable.classroom.classroomNumber !== "Не определена" ? timetable.classroom.classroomNumber : null }}
                                                 </div>
-                                                <div class="course-name">{{ timetable.course.name }}</div>
+                                                <div class="course-name" style="min-width: 130px;">{{ timetable.course.name }}</div>
                                         </a>
                                     </div>
                                 </li>

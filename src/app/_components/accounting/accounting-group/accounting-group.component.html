@@ -47,12 +47,23 @@
                         <td *ngFor="let date of dates; let j = index"
                             [ngStyle]="{'background-color': isEditable(date) ? '' : 'white'}"
                             [attr.contenteditable]="isEditable(date) ? 'false' : 'true'"
-                            (input)="onEnterKey($event, student, date, i, j)">{{ hasUserIdAndDate(student.userId, date) }}</td>
+                            (input)="onEnterKey($event, student, date, i, j, isWorkDate(date))">{{ hasUserIdAndDate(student.userId, date) }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <!-- <button class="back-button" (click)="navigateToCourseGroups()">Назад</button>  -->
-        <button class="send-button mt-4" *ngIf="students.length !== 0" (click)="sendAbsences()">Отправить</button>
+        <button class="send-button mt-4" *ngIf="students.length !== 0 && showButton" (click)="sendAbsences()">Отправить</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body" style="display: inline-block;">
+        <div id="square" style="float: left;"></div>
+        <div>&nbsp;- столбец запрещен для редактирования</div>
+        <div style="padding-top: 1px;">КР - Контрольная работа</div>
+        СР - Самостоятельная работа<br>
+        ДР - Домашняя работа<br>
+        РНП - Работа на паре
     </div>
 </div>

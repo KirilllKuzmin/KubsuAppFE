@@ -34,7 +34,10 @@ export class TimetableComponent implements OnInit {
         this.numTimeClassHeld = numTimeClassHeld;
     });
 
-    this.timetableService.getAllTimetable(this.weeklyDates[1].date, this.weeklyDates[6].date).pipe(first()).subscribe(timetables => {
+    let saturday = new Date(this.weeklyDates[5].date);
+    saturday.setDate(saturday.getDate() + 1)
+
+    this.timetableService.getAllTimetable(this.weeklyDates[1].date, saturday).pipe(first()).subscribe(timetables => {
       this.loading = false;
       this.timetables = timetables;
   });
@@ -49,9 +52,9 @@ export class TimetableComponent implements OnInit {
 
     startOfWeek.setDate(today.getDate() - dayOfWeek + 1); 
 
-    const daysOfWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+    const daysOfWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
 
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 6; i++) {
       const currentDay = new Date(startOfWeek);
       currentDay.setDate(startOfWeek.getDate() + i);
       this.weeklyDates.push({
@@ -64,7 +67,6 @@ export class TimetableComponent implements OnInit {
 
   filterTimetableByNumTimeAndDay(numTime: NumTimeClassHeld, day: { dayOfWeekNum: number, dayOfWeek: string, date: Date}) {
     return this.timetables.filter(timetable => {
-      console.log(timetable.dayOfWeek === day.dayOfWeekNum + 1 && timetable.numberTimeClassHeld.id === numTime.id);
       return timetable.dayOfWeek === day.dayOfWeekNum + 1 && timetable.numberTimeClassHeld.id === numTime.id;
     });
   }
