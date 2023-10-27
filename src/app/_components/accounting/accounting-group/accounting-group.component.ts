@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
@@ -9,6 +9,8 @@ import { AccountingGroupService } from '@app/_services/accounting/accounting-gro
 import { WorkTypeService } from '@app/_services/accounting/work-type.service';
 import { Absence } from '@app/_models/dto/absence';
 import { Evaluation } from '@app/_models/dto/IEvaluation';
+
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-accounting-group',
@@ -29,6 +31,8 @@ export class AccountingGroupComponent implements OnInit {
   evaluations: Evaluation[] = [];
   workDates: WorkDates[] = [];
   showButton: boolean = false;
+
+  @ViewChild('tableToExport') table: ElementRef;
 
   constructor(
     private accountingGroupService: AccountingGroupService,
@@ -223,6 +227,17 @@ export class AccountingGroupComponent implements OnInit {
 
   closeModalWorkType() {
       this.isModalOpenWorkType = false;
+  }
+
+  exportTableToXLSX() {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+
+    ws['!cols'] = [{ width: 15 }, { width: 15 }]
+
+    XLSX.utils.book_append_sheet(wb, ws, 'Журнал группы');
+
+    XLSX.writeFile(wb, 'table.xlsx');
   }
 
   navigateToCourseGroups() {

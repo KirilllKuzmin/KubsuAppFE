@@ -80,17 +80,27 @@ td {
     background-color: rgba(0, 30, 150, 0.9);
 }
 
-.send-button {
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+.send-button, .xlsx-button {
     background-color: rgba(15, 71, 255, 0.89);
     color: white;
     border: none;
     border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
-    margin-left: auto;
-}
+  }
 
 .send-button:hover {
+    background-color: rgba(0, 30, 150, 0.9);
+}
+
+.xlsx-button:hover {
     background-color: rgba(0, 30, 150, 0.9);
 }
 

@@ -23,7 +23,7 @@
 
         <input *ngIf="students.length !== 0" type="text" class="find-student mb-2 border py-2 px-5 w-full rounded-1" placeholder="Введите имя студента..." [(ngModel)]="searchStudent">
         <div class="table-container mt-3" *ngIf="students.length !== 0">
-            <table>
+            <table #tableToExport>
                 <thead>
                     <tr>
                         <!-- (click)="openModal()"  -->
@@ -53,7 +53,10 @@
             </table>
         </div>
         <!-- <button class="back-button" (click)="navigateToCourseGroups()">Назад</button>  -->
-        <button class="send-button mt-4" *ngIf="students.length !== 0 && showButton" (click)="sendAbsences()">Отправить</button>
+        <div class="button-container">
+            <button class="xlsx-button mt-4" (click)="exportTableToXLSX()">Сохранить в XLSX</button>
+            <button class="send-button mt-4" *ngIf="students.length !== 0 && showButton" (click)="sendAbsences()">Отправить</button>
+        </div>
     </div>
 </div>
 
