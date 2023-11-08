@@ -31,7 +31,7 @@ export class TimetableComponent implements OnInit {
 
   currentDate = new Date();
   currentDateISO = formatISO(this.currentDate);
-  weekNumber = parseInt(formatDate(this.currentDateISO, 'w', 'en-US'));
+  weekNumber: number;
 
 
   constructor(
@@ -69,6 +69,8 @@ export class TimetableComponent implements OnInit {
       this.loading = false;
        this.groups = groups;
      });
+    
+    this.weekNumber = parseInt(formatDate(formatISO(this.weeklyDates[0].date), 'w', 'en-US'));
   }
 
   getWeekNumberToNumber(currDate: Date) {
@@ -121,5 +123,73 @@ export class TimetableComponent implements OnInit {
     });
     
     return groupNames.join(', ');
+  }
+
+  getTimetablesForNextWeek() {
+    const startOfWeek = this.weeklyDates[0].date; 
+    startOfWeek.setDate(startOfWeek.getDate() + 7);
+
+    for (let i = 0; i < 6; i++) {
+      const currentDay = new Date(startOfWeek);
+      currentDay.setDate(startOfWeek.getDate() + i);
+      this.weeklyDates[i].date = currentDay;
+    }
+
+    this.weekNumber = parseInt(formatDate(formatISO(this.weeklyDates[0].date), 'w', 'en-US'));
+
+    let saturday = new Date(this.weeklyDates[5].date);
+    saturday.setDate(saturday.getDate() + 1)
+
+    this.timetableService.getAllTimetable(this.weeklyDates[1].date, saturday).pipe(first()).subscribe(timetables => {
+      this.loading = false;
+      this.timetables = timetables;
+    });
+  }
+
+  getTimetablesForPreviousWeek() {
+    const startOfWeek = this.weeklyDates[0].date; 
+    startOfWeek.setDate(startOfWeek.getDate() - 7);
+
+    for (let i = 0; i < 6; i++) {
+      const currentDay = new Date(startOfWeek);
+      currentDay.setDate(startOfWeek.getDate() + i);
+      this.weeklyDates[i].date = currentDay;
+    }
+
+    this.weekNumber = parseInt(formatDate(formatISO(this.weeklyDates[0].date), 'w', 'en-US'));
+
+    let saturday = new Date(this.weeklyDates[5].date);
+    saturday.setDate(saturday.getDate() + 1)
+
+    this.timetableService.getAllTimetable(this.weeklyDates[1].date, saturday).pipe(first()).subscribe(timetables => {
+      this.loading = false;
+      this.timetables = timetables;
+    });
+  }
+
+  getTimetablesForNow() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const dayOfWeek = today.getDay(); 
+    const startOfWeek = new Date(today); 
+
+    startOfWeek.setDate(today.getDate() - dayOfWeek + 1); 
+
+    for (let i = 0; i < 6; i++) {
+      const currentDay = new Date(startOfWeek);
+      currentDay.setDate(startOfWeek.getDate() + i);
+      this.weeklyDates[i].date = currentDay;
+    }
+
+    this.weekNumber = parseInt(formatDate(formatISO(this.weeklyDates[0].date), 'w', 'en-US'));
+
+    let saturday = new Date(this.weeklyDates[5].date);
+    saturday.setDate(saturday.getDate() + 1)
+
+    this.timetableService.getAllTimetable(this.weeklyDates[1].date, saturday).pipe(first()).subscribe(timetables => {
+      this.loading = false;
+      this.timetables = timetables;
+    });
   }
 }

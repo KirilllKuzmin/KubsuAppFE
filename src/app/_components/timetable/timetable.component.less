@@ -28,6 +28,8 @@
 .week-type {
     background-color: rgba(189, 223, 255, 0.411);
     padding: 5px;
+    border-radius: 5px;
+    text-align: left;
 }
 
 .nav-div {
@@ -47,14 +49,14 @@
     margin-left: 3px;
   }
   
-  .classroom {
+.classroom {
     order: 2; 
     background-color: rgba(189, 223, 255, 0.534);
     font-size: 12px;
     padding-right: 3px;
     padding-left: 3px;
     border-radius: 3px;
-  }
+}
 
 .nav .nav-link {
     border: 1px solid rgba(199, 213, 255, 0.5);
@@ -136,4 +138,41 @@ td {
     display: -webkit-box;
     -webkit-line-clamp: 1; 
     -webkit-box-orient: vertical;
+}
+
+.button-left {
+    background-color: white;
+    border: 1px solid rgba(199, 213, 255, 0.5);
+    border-radius: 5px 0 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.button-right {
+    background-color: white;
+    border: 1px solid rgba(199, 213, 255, 0.5);
+    border-radius: 0 5px 5px 0;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.button-today {
+    background-color: white;
+    border: 1px solid rgba(199, 213, 255, 0.5);
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.button-today:hover {
+    background-color: rgba(199, 213, 255, 0.5);
+}
+
+.button-left:hover {
+    background-color: rgba(199, 213, 255, 0.5);
+}
+
+.button-right:hover {
+    background-color: rgba(199, 213, 255, 0.5);
 }
