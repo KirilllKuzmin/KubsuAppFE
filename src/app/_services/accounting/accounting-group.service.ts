@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '@environments/environment';
 import { Student } from '@app/_models/IStudent';
-import { WorkDates } from '@app/_models/dto/IWorkDates';
+import { WorkDates } from '@app/_models/IWorkDates';
 import { User } from '@app/_models';
 import { catchError, tap } from 'rxjs';
-import { Absence } from '@app/_models/dto/IAbsence';
-import { Evaluation } from '@app/_models/dto/IEvaluation';
+import { Absence } from '@app/_models/IAbsence';
+import { Evaluation } from '@app/_models/IEvaluation';
 
 @Injectable({
   providedIn: 'root'

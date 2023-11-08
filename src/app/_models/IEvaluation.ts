@@ -1,4 +1,4 @@
-import { Student } from "../IStudent";
+import { Student } from "./IStudent";
 import { EvaluationType } from "./IEvaluationType";
 
 export interface Evaluation {

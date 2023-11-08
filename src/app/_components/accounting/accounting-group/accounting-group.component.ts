@@ -4,11 +4,11 @@ import { first } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 
 import { Student } from '@app/_models/IStudent';
-import { WorkDates } from '@app/_models/dto/IWorkDates';
+import { WorkDates } from '@app/_models/IWorkDates';
 import { AccountingGroupService } from '@app/_services/accounting/accounting-group.service';
 import { WorkTypeService } from '@app/_services/accounting/work-type.service';
-import { Absence } from '@app/_models/dto/IAbsence';
-import { Evaluation } from '@app/_models/dto/IEvaluation';
+import { Absence } from '@app/_models/IAbsence';
+import { Evaluation } from '@app/_models/IEvaluation';
 import { Month } from '@app/_models/EMonths';
 
 import * as XLSX from 'xlsx';

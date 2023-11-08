@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TypeOfWork } from '@app/_models/ITypeOfWork';
-import { WorkDates } from '@app/_models/dto/IWorkDates';
+import { WorkDates } from '@app/_models/IWorkDates';
 import { environment } from '@environments/environment';
 import { formatISO } from 'date-fns';
 

@@ -1,4 +1,4 @@
-import { TypeOfWork } from "../ITypeOfWork";
+import { TypeOfWork } from "./ITypeOfWork";
 
 export interface WorkDates {
     typeOfWork: TypeOfWork;

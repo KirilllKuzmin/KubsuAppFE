@@ -1,4 +1,4 @@
-import { Student } from "../IStudent";
+import { Student } from "./IStudent";
 import { AbsenceType } from "./IAbsenceType";
 
 export interface Absence {

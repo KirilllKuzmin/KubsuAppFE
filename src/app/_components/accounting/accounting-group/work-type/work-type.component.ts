@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { TypeOfWork } from '@app/_models/ITypeOfWork';
 import { WorkTypeService } from '@app/_services/accounting/work-type.service';
 import { first } from 'rxjs/operators';
-import { WorkDates } from '@app/_models/dto/IWorkDates';
+import { WorkDates } from '@app/_models/IWorkDates';
 import { forkJoin } from 'rxjs';
 
 @Component({
