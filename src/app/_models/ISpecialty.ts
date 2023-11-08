@@ -1,5 +1,5 @@
-import { DegreeOfStudy } from "./degreeOfStudy";
-import { Faculty } from "./faculty";
+import { DegreeOfStudy } from "./IDegreeOfStudy";
+import { Faculty } from "./IFaculty";
 
 export interface Specialty {
     id: number;

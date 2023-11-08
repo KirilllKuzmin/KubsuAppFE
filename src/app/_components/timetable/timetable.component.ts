@@ -10,7 +10,7 @@ import { AuthenticationService, UserService } from '@app/_services';
 
 import { formatISO } from 'date-fns';
 import { formatDate } from '@angular/common';
-import { Group } from '@app/_models/group';
+import { Group } from '@app/_models/IGroup';
 import { TimetableGroup } from '@app/_models/ITimetableGroup';
 
 @Component({

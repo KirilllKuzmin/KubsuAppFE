@@ -1,4 +1,4 @@
-import { Specialty } from "./specialty";
+import { Specialty } from "./ISpecialty";
 
 export interface Group {
     id: number;

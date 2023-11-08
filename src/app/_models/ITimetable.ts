@@ -1,7 +1,7 @@
 import { Classroom } from "./IClassroom"; 
 import { NumTimeClassHeld } from "./INumTimeClassHeld";
 import { Lecturer } from "./ILecturer";
-import { Course } from "./course";
+import { Course } from "./ICourse";
 import { WeekType } from "./IWeekType";
 import { Semester } from "./ISemester";
 import { TimetableGroup } from "./ITimetableGroup";

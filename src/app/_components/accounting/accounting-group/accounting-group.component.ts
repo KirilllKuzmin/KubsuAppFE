@@ -3,11 +3,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 
-import { Student } from '@app/_models/student';
+import { Student } from '@app/_models/IStudent';
 import { WorkDates } from '@app/_models/dto/IWorkDates';
 import { AccountingGroupService } from '@app/_services/accounting/accounting-group.service';
 import { WorkTypeService } from '@app/_services/accounting/work-type.service';
-import { Absence } from '@app/_models/dto/absence';
+import { Absence } from '@app/_models/dto/IAbsence';
 import { Evaluation } from '@app/_models/dto/IEvaluation';
 import { Month } from '@app/_models/EMonths';
 

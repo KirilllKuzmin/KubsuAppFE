@@ -1,5 +1,5 @@
-import { Student } from "../student";
-import { AbsenceType } from "./absenceType";
+import { Student } from "../IStudent";
+import { AbsenceType } from "./IAbsenceType";
 
 export interface Absence {
     student: Student;

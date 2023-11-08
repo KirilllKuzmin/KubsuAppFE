@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Student } from '@app/_models/student';
 
 @Component({
   selector: 'app-filter-student',

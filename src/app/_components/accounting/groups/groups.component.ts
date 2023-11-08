@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 
-import { Group } from '@app/_models/group';
+import { Group } from '@app/_models/IGroup';
 import { GroupsService } from '@app/_services/accounting/groups.service';
 
 @Component({

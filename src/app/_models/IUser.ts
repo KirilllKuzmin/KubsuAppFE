@@ -1,4 +1,4 @@
-﻿import { Role } from "./role";
+﻿import { Role } from "./IRole";
 
 export interface User {
     id: number;

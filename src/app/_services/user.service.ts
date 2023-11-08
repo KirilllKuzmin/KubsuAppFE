@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
-import { Group } from '@app/_models/group';
+import { Group } from '@app/_models/IGroup';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
