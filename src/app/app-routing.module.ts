@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './_components/home';
-import { AccountingGroupComponent } from './_components/accounting/accounting-group/accounting-group.component';
+import { AccountingGroupComponent } from './_components/accounting/groups/accounting/accounting.groups.component';
 import { CoursesComponent } from './_components/accounting/courses/courses.component';
 import { GroupsComponent } from './_components/accounting/groups/groups.component';
 import { ReportComponent } from './_components/report/report.component';

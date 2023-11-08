@@ -3,15 +3,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { TimetableService } from '@app/_services/timetable.service';
-import { NumTimeClassHeld } from '@app/_models/INumTimeClassHeld';
-import { Timetable } from '@app/_models/ITimetable';
+import { NumTimeClassHeld } from '@app/_models/interfaces/INumTimeClassHeld';
+import { Timetable } from '@app/_models/interfaces/ITimetable';
 import { User } from '@app/_models';
 import { AuthenticationService, UserService } from '@app/_services';
 
 import { formatISO } from 'date-fns';
 import { formatDate } from '@angular/common';
-import { Group } from '@app/_models/IGroup';
-import { TimetableGroup } from '@app/_models/ITimetableGroup';
+import { Group } from '@app/_models/interfaces/IGroup';
+import { TimetableGroup } from '@app/_models/interfaces/ITimetableGroup';
 
 @Component({
   selector: 'app-timetable',

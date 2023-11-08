@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '@environments/environment';
-import { Student } from '@app/_models/IStudent';
-import { WorkDates } from '@app/_models/IWorkDates';
+import { Student } from '@app/_models/interfaces/IStudent';
+import { WorkDates } from '@app/_models/interfaces/IWorkDates';
 import { User } from '@app/_models';
 import { catchError, tap } from 'rxjs';
-import { Absence } from '@app/_models/IAbsence';
-import { Evaluation } from '@app/_models/IEvaluation';
+import { Absence } from '@app/_models/interfaces/IAbsence';
+import { Evaluation } from '@app/_models/interfaces/IEvaluation';
 
 @Injectable({
   providedIn: 'root'

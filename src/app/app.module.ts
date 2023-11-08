@@ -12,12 +12,12 @@ import { CoursesComponent } from './_components/accounting/courses/courses.compo
 import { LoginComponent } from './_components/login';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupsComponent } from './_components/accounting/groups/groups.component';
-import { AccountingGroupComponent } from './_components/accounting/accounting-group/accounting-group.component';
+import { AccountingGroupComponent } from './_components/accounting/groups/accounting/accounting.groups.component';
 import { AdjustHeightDirective } from './_helpers/adjust-height.directive';
-import { FilterStudentComponent } from './_components/accounting/accounting-group/filter-student//filter-student.component';
+import { FilterStudentComponent } from './_components/accounting/groups/accounting/filter-student/filter-student.component';
 import { FilterStudentPipe } from './_pipes/filter-student.pipe';
 import { ReportComponent } from './_components/report/report.component';
-import { WorkTypeComponent } from './_components/accounting/accounting-group/work-type/work-type.component';
+import { WorkTypeComponent } from './_components/accounting/groups/accounting/work-type/work-type.component';
 import { TimetableComponent } from './_components/timetable/timetable.component';
 
 @NgModule({

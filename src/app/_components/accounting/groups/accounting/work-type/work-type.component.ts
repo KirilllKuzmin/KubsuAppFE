@@ -1,8 +1,8 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-import { TypeOfWork } from '@app/_models/ITypeOfWork';
+import { TypeOfWork } from '@app/_models/interfaces/ITypeOfWork';
 import { WorkTypeService } from '@app/_services/accounting/work-type.service';
 import { first } from 'rxjs/operators';
-import { WorkDates } from '@app/_models/IWorkDates';
+import { WorkDates } from '@app/_models/interfaces/IWorkDates';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -71,9 +71,7 @@ export class WorkTypeComponent implements OnInit {
       }
     }
 
-    if (checkAnyTrue) {
-      this.workTypeService.setWorks(this.courseId, this.groupId, workTypeIds, this.date);
-      window.location.reload();
-    }
+    this.workTypeService.setWorks(this.courseId, this.groupId, workTypeIds, this.date);
+    window.location.reload();
   }
 }
