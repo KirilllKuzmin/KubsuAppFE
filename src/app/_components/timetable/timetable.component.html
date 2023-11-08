@@ -43,11 +43,13 @@
                                             *ngIf="i < 1" 
                                             (click)="navigateToCourseGroups(timetable.course.id)">
                                                 <div class="course-type">
-                                                    {{ timetable.course.courseType.name }} 
-                                                    {{ timetable.classroom.classroomNumber !== "Не определена" ? timetable.classroom.classroomNumber : null }}
+                                                    <span class="name">{{ timetable.course.courseType.name }}</span>
+                                                    <span class="classroom" *ngIf="timetable.classroom.classroomNumber !== &quot;Не определена&quot;">
+                                                        {{ timetable.classroom.classroomNumber }}
+                                                    </span>
                                                 </div>
                                                 <div class="course-name" style="min-width: 130px;">{{ timetable.course.name }}</div>
-                                                <div class="course-type" style="min-width: 130px;">Группы: {{ timetable.timetableGroup[0].groupId }}</div>
+                                                <div class="course-type" style="min-width: 130px;">Группы: {{ getGroupNamesByIds(timetable.timetableGroup) }}</div>
                                         </a>
                                     </div>
                                 </li>

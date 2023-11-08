@@ -35,10 +35,26 @@
 }
 
 .nav .course-type {
+    display: flex;
     background-color: rgba(189, 223, 255, 0.411);
     font-size: 12px;
     border-radius: 3px;
+    justify-content: space-between;
 }
+
+.name {
+    order: 1; 
+    margin-left: 3px;
+  }
+  
+  .classroom {
+    order: 2; 
+    background-color: rgba(189, 223, 255, 0.534);
+    font-size: 12px;
+    padding-right: 3px;
+    padding-left: 3px;
+    border-radius: 3px;
+  }
 
 .nav .nav-link {
     border: 1px solid rgba(199, 213, 255, 0.5);
@@ -102,9 +118,22 @@ td {
 }
 
 .course-name {
+    
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+}
+
+.course-group {
+    background-color: rgba(189, 223, 255, 0.411);
+    font-size: 12px;
+    border-radius: 3px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; 
     -webkit-box-orient: vertical;
 }

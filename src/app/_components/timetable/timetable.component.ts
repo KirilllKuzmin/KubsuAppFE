@@ -10,6 +10,8 @@ import { AuthenticationService, UserService } from '@app/_services';
 
 import { formatISO } from 'date-fns';
 import { formatDate } from '@angular/common';
+import { Group } from '@app/_models/group';
+import { TimetableGroup } from '@app/_models/ITimetableGroup';
 
 @Component({
   selector: 'app-timetable',
@@ -21,6 +23,7 @@ export class TimetableComponent implements OnInit {
   loading = false;
   user: User;
   userFromApi?: User;
+  groups: Group[] = [];
 
   weeklyDates: { dayOfWeekNum: number, dayOfWeek: string, date: Date}[] = []; //Вынести в отдельную модель
   numTimeClassHeld: NumTimeClassHeld[] = [];
@@ -61,6 +64,11 @@ export class TimetableComponent implements OnInit {
      this.loading = false;
       this.userFromApi = user;
     });
+
+    this.userService.getAllGroupNames().pipe(first()).subscribe(groups => {
+      this.loading = false;
+       this.groups = groups;
+     });
   }
 
   getWeekNumberToNumber(currDate: Date) {
@@ -106,4 +114,12 @@ export class TimetableComponent implements OnInit {
     return day.getTime() === today.getTime();
   }
 
+  getGroupNamesByIds(groupIds: TimetableGroup[]): string {
+    const groupNames: string[] = groupIds.map(timetableGroups => {
+      const group = this.groups.find(g => g.id === timetableGroups.groupId);
+      return group ? group.name : 'Группа не найдена';
+    });
+    
+    return groupNames.join(', ');
+  }
 }

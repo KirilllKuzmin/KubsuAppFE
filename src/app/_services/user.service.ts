@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
+import { Group } from '@app/_models/group';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -17,6 +18,6 @@ export class UserService {
     }
 
     getAllGroupNames() {
-        return this.http.get<User>(`${environment.apiUrl}/users/groups`);
+        return this.http.get<Group[]>(`${environment.apiUrl}/users/groups`);
     }
 }
