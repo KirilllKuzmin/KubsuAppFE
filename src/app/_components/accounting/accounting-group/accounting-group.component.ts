@@ -12,6 +12,7 @@ import { Evaluation } from '@app/_models/dto/IEvaluation';
 import { Month } from '@app/_models/EMonths';
 
 import * as XLSX from 'xlsx';
+import { TypeOfWork } from '@app/_models/ITypeOfWork';
 
 @Component({
   selector: 'app-accounting-group',

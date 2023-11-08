@@ -63,9 +63,9 @@
                     [ngStyle]="{'background-color': isEditable(date) ? '' : 'white'}" -->
                     <tr *ngFor="let student of students | filterStudent: searchStudent; let i = index">
                         <td style="background-color: rgba(229, 235, 255, 0.5)">{{ student.fullName }}</td>
-                        <td *ngFor="let date of dates; let j = index"
+                        <td *ngFor="let dateAndWork of datesAndWorks; let j = index"
                             [attr.contenteditable]="true"
-                            (input)="onEnterKey($event, student, date, i, j, isWorkDate(date))">{{ hasUserIdAndDate(student.userId, date) }}</td>
+                            (input)="onEnterKey($event, student, dateAndWork.date, i, j, isWorkDate(dateAndWork.date))">{{ hasUserIdAndDate(student.userId, dateAndWork.date) }}</td>
                     </tr>
                 </tbody>
             </table>
