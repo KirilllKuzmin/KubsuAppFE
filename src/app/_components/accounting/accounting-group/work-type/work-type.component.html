@@ -10,20 +10,17 @@
         <button (click)="closeModal()">Закрыть</button> -->
         <div class="header">
             <span>Выберите тип проводимой работы</span>
-            <span class="close-button" (click)="closeModal()">&times;</span>
+            <button class="close-button" (click)="closeModal()">&times;</button>
         </div>
         <div class="radio-content">
             <div *ngFor="let workType of workTypes">
                 <label>
-                    <input type="radio" [(ngModel)]="selectedWorkType" [value]="workType.id"> {{ workType.name }}
+                    <input type="checkbox" [(ngModel)]="isChecked[workType.id]" [value]="workType" (change)="toggleSelection(workType)"> {{ workType.name }}
                 </label>
             </div>
-            <label>
-                <input type="radio" [(ngModel)]="selectedWorkType" [value]="0"> Удалить
-            </label>
         </div>
         <div class="footer">
-            <button (click)="sendWorkType()">Применить</button>
+            <button class="send-button" (click)="sendWorkType()">Применить</button>
         </div>
     </div>
 </div>

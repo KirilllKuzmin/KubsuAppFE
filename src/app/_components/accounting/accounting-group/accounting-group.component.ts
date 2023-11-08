@@ -9,6 +9,7 @@ import { AccountingGroupService } from '@app/_services/accounting/accounting-gro
 import { WorkTypeService } from '@app/_services/accounting/work-type.service';
 import { Absence } from '@app/_models/dto/absence';
 import { Evaluation } from '@app/_models/dto/IEvaluation';
+import { Month } from '@app/_models/EMonths';
 
 import * as XLSX from 'xlsx';
 
@@ -24,6 +25,8 @@ export class AccountingGroupComponent implements OnInit {
   courseId: number = 0;
   groupId: number = 0;
   dates: Date[] = [];
+  datesAndWorks: { date: Date, work?: WorkDates }[] = [];
+  months: { monthName: string, daysCount: number }[] = []; //В идеале перенести в _models
   filteredStudents: Student[] = [];
   isFilterOpen: boolean = false;
   searchStudent: string = '';
@@ -31,6 +34,8 @@ export class AccountingGroupComponent implements OnInit {
   evaluations: Evaluation[] = [];
   workDates: WorkDates[] = [];
   showButton: boolean = false;
+  currentMonth: string;
+
 
   @ViewChild('tableToExport') table: ElementRef;
 
@@ -39,7 +44,7 @@ export class AccountingGroupComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private workTypeService: WorkTypeService
-  ) { }
+  ) {  }
 
   ngOnInit() {
       this.loading = true;
@@ -69,6 +74,40 @@ export class AccountingGroupComponent implements OnInit {
           this.absences = absences;
           this.evaluations = evaluations;
           this.workDates = workDates;
+
+          const daysInMonthMap: { [month: string]: number } = {};
+
+          for (const date of this.dates) {
+            if (this.isWorkDate(date)) {
+              const works = this.workDates
+                .filter(workDate => new Date(workDate.workDateTime).getTime() === date.getTime());
+              
+              for (const work of works) {
+                this.datesAndWorks.push({ date, work });
+              }
+            }
+            this.datesAndWorks.push({ date });
+          }
+
+          for (const dateAndWork of this.datesAndWorks) {
+            const monthKey = Month[dateAndWork.date.getMonth()];
+
+            if (!daysInMonthMap[monthKey]) {
+              daysInMonthMap[monthKey] = 0;
+            }
+
+            daysInMonthMap[monthKey]++;
+          }
+
+          for (const key in daysInMonthMap) {
+            if (daysInMonthMap.hasOwnProperty(key)) {
+              const monthName = key;
+              const daysCount = daysInMonthMap[key];
+
+              this.months.push({ monthName, daysCount });
+            }
+          }
+
         }
       );
   }
@@ -204,6 +243,21 @@ export class AccountingGroupComponent implements OnInit {
       .map(workDate => workDate.typeOfWork.name.split(" ").map(word => word.charAt(0).toUpperCase()).join(""));
   }
 
+  getMonthString(date: Date) {
+    return Month[date.getMonth()];
+  }
+
+  getCountWorks(date: Date) {
+    const filteredDates = this.workDates.filter(workDate => new Date(workDate.workDateTime).getTime() === date.getTime());
+    return filteredDates.length + 1;
+  }
+
+  extractInitials(name: string): string {
+    const words = name.split(' '); 
+    const initials = words.map(word => word.charAt(0).toUpperCase()); 
+    return initials.join(''); 
+  }
+
   isModalOpen = false;
 
   openModal() {
@@ -218,10 +272,17 @@ export class AccountingGroupComponent implements OnInit {
   isModalOpenWorkType = false;
 
   openModalWorkType(date: Date) {
-      console.log("press");
-      this.workTypeService.setWorkDate(date);
+      //console.log("press");
+      const workDates = this.workDates
+        .filter(workDate => new Date(workDate.workDateTime).getTime() === date.getTime());
+      
+      console.log(workDates);
+
+      this.workTypeService.setWorkDates(workDates);
+      this.workTypeService.setDate(date);
       this.workTypeService.setCourseId(this.courseId);
       this.workTypeService.setGroupId(this.groupId);
+
       this.isModalOpenWorkType = true;
   }
 

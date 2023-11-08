@@ -13,7 +13,7 @@
   }
   
   .modal-content {
-    background-color: #fff;
+    background-color: #f9faff;
     border-radius: 5px;
     top: 60px;
     left: 35%;
@@ -23,10 +23,13 @@
   }
   
   .header {
+    background-color: white;
     border-radius: 5px 5px 0 0;
-    background: rgba(15, 71, 255, 0.89);
-    color: #fff;
+    border: 1px solid rgba(199, 213, 255, 0.5);
+    box-shadow: 0px 4px 10px rgba(229, 235, 255, 0.5);
     padding: 10px;
+    font-weight: 500;
+    font-size: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -55,6 +58,19 @@
     cursor: pointer;
 }
 
+.send-button {
+  background-color: rgba(15, 71, 255, 0.89);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.send-button:hover {
+  background-color: rgba(0, 30, 150, 0.9);
+}
+
 .button-header {
     background: none;
     border: none;
@@ -62,4 +78,17 @@
 
 button:hover {
   background-color: rgba(0, 30, 150, 0.9);
+}
+
+.close-button {
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: rgba(199, 213, 255, 0.5);
 }

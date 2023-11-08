@@ -10,19 +10,28 @@ import { formatISO } from 'date-fns';
 })
 export class WorkTypeService {
 
-  private workDate: Date;
+  private workDates: WorkDates[];
+  private date: Date;
   private courseId: number;
   private groupId: number;
   private typeOfWork: TypeOfWork;
 
   constructor(private http: HttpClient) {}
 
-  setWorkDate(value: Date) {
-    this.workDate = value;
+  setWorkDates(workDates: WorkDates[]) {
+    this.workDates = workDates;
   }
 
-  getWorkDate() {
-    return this.workDate;
+  getWorkDates() {
+    return this.workDates;
+  }
+
+  setDate(date: Date) {
+    this.date = date;
+  }
+
+  getDate() {
+    return this.date;
   }
 
   setCourseId(courseId: number) {
@@ -45,16 +54,15 @@ export class WorkTypeService {
     return this.http.get<TypeOfWork[]>(`${environment.apiUrlAcc}/accounting/workTypes`);
   }
 
-  setWorkDates(courseId: number, groupId: number, typeOfWork: number, workDate: Date) {
+  setWorks(courseId: number, groupId: number, typeOfWorks: number[], workDate: Date) {
     console.log(courseId);
     console.log(groupId);
-    console.log(typeOfWork);
+    console.log(typeOfWorks);
     console.log(formatISO(workDate, {representation: 'complete'}));
-    if (typeOfWork === undefined || typeOfWork === null) {
-      typeOfWork = 0;
-    }
-    return this.http.post<WorkDates>(`${environment.apiUrlAcc}/accounting/lecturers/courses/${courseId}/groups/${groupId}/works/${typeOfWork}/dates/${formatISO(workDate, {representation: 'complete'})}`, {})
-      .subscribe(response =>
-        console.log(response))
+
+    return this.http.post<WorkDates[]>(`${environment.apiUrlAcc}/accounting/lecturers/courses/${courseId}/groups/${groupId}/dates/${formatISO(workDate, {representation: 'complete'})}/works`, 
+      typeOfWorks )
+        .subscribe(response =>
+          console.log(response))
   }
 }
