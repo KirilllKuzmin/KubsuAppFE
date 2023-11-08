@@ -5,6 +5,11 @@ import { first } from 'rxjs/operators';
 import { TimetableService } from '@app/_services/timetable.service';
 import { NumTimeClassHeld } from '@app/_models/INumTimeClassHeld';
 import { Timetable } from '@app/_models/ITimetable';
+import { User } from '@app/_models';
+import { AuthenticationService, UserService } from '@app/_services';
+
+import { formatISO } from 'date-fns';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-timetable',
@@ -14,17 +19,27 @@ import { Timetable } from '@app/_models/ITimetable';
 export class TimetableComponent implements OnInit {
 
   loading = false;
+  user: User;
+  userFromApi?: User;
+
   weeklyDates: { dayOfWeekNum: number, dayOfWeek: string, date: Date}[] = []; //Вынести в отдельную модель
   numTimeClassHeld: NumTimeClassHeld[] = [];
   timetables: Timetable[] = [];
+
+  currentDate = new Date();
+  currentDateISO = formatISO(this.currentDate);
+  weekNumber = parseInt(formatDate(this.currentDateISO, 'w', 'en-US'));
 
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private timetableService: TimetableService
+    private timetableService: TimetableService,
+    private userService: UserService,
+    private authenticationService: AuthenticationService
   ) {
     this.generateWeeklyDates();
+    this.user = <User>this.authenticationService.userValue;
    }
 
   ngOnInit(): void {
@@ -40,7 +55,17 @@ export class TimetableComponent implements OnInit {
     this.timetableService.getAllTimetable(this.weeklyDates[1].date, saturday).pipe(first()).subscribe(timetables => {
       this.loading = false;
       this.timetables = timetables;
-  });
+    });
+
+    this.userService.getById().pipe(first()).subscribe(user => {
+     this.loading = false;
+      this.userFromApi = user;
+    });
+  }
+
+  getWeekNumberToNumber(currDate: Date) {
+    const weekNumber = formatDate(currDate, 'w', 'UTC');
+    return parseInt(weekNumber);
   }
 
   generateWeeklyDates() {

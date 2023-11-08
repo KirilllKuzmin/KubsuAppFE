@@ -4,6 +4,7 @@ import { Lecturer } from "./ILecturer";
 import { Course } from "./course";
 import { WeekType } from "./IWeekType";
 import { Semester } from "./ISemester";
+import { TimetableGroup } from "./ITimetableGroup";
 
 export interface Timetable {
     id: number;
@@ -14,4 +15,5 @@ export interface Timetable {
     numberTimeClassHeld: NumTimeClassHeld;
     weekType: WeekType;
     semester: Semester;
+    timetableGroup: TimetableGroup[];
 }

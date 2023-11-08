@@ -15,4 +15,8 @@ export class UserService {
     getById() {
         return this.http.get<User>(`${environment.apiUrl}/users`);
     }
+
+    getAllGroupNames() {
+        return this.http.get<User>(`${environment.apiUrl}/users/groups`);
+    }
 }

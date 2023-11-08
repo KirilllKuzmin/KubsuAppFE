@@ -1,8 +1,16 @@
 <div class="component-header">
     <h3>
-        <button class="back-button-header" (click)="null">Расписание</button>
+        <button *ngIf="userFromApi" class="back-button-header" (click)="null">Расписание пользователя: {{userFromApi.fullName}}</button>
     </h3>
     <nav class="navbar navbar-expand-lg bg-white"></nav>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="container" style="font-size: 16px;">
+            Неделя: <span class="week-type">{{ weekNumber % 2 == 0 ? 'Знаменатель' : 'Числитель' }}</span>
+        </div>
+    </div>
 </div>
 
 <div class="card">
@@ -39,6 +47,7 @@
                                                     {{ timetable.classroom.classroomNumber !== "Не определена" ? timetable.classroom.classroomNumber : null }}
                                                 </div>
                                                 <div class="course-name" style="min-width: 130px;">{{ timetable.course.name }}</div>
+                                                <div class="course-type" style="min-width: 130px;">Группы: {{ timetable.timetableGroup[0].groupId }}</div>
                                         </a>
                                     </div>
                                 </li>

@@ -1,5 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { first } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 import { User } from '@app/_models';
 import { UserService, AuthenticationService } from '@app/_services';
