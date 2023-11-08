@@ -5,7 +5,7 @@ import { forkJoin } from 'rxjs';
 
 import { Student } from '@app/_models/interfaces/IStudent';
 import { WorkDates } from '@app/_models/interfaces/IWorkDates';
-import { AccountingGroupService } from '@app/_services/accounting/accounting-group.service';
+import { AccountingGroupService } from '@app/_services/accounting/accounting.groups.service';
 import { WorkTypeService } from '@app/_services/accounting/work-type.service';
 import { Absence } from '@app/_models/interfaces/IAbsence';
 import { Evaluation } from '@app/_models/interfaces/IEvaluation';

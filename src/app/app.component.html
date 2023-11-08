@@ -3,10 +3,10 @@
     <nav class="navbar navbar-expand-lg bg-white" *ngIf="user" adjustHeight>
         <img src="/assets/img/kubsu2.jpg" class="img-fluid" style="width: 3%; margin-left: 10px;">
         <div class="navbar-nav">
-            <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Главная</a>
-            <a class="nav-item nav-link" routerLink="/timetable" routerLinkActive="active">Расписание</a>
-            <a class="nav-item nav-link" routerLink="/accounting/courses" routerLinkActive="active" *ngIf="isLecturer">Журнал</a>
-            <a class="nav-item nav-link" routerLink="/reports" routerLinkActive="active" *ngIf="isModerator">Отчеты</a>
+            <a class="nav-item nav-link" routerLink="/" translate="Home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true} "></a>
+            <a class="nav-item nav-link" routerLink="/timetable" translate="Timetable" routerLinkActive="active"></a>
+            <a class="nav-item nav-link" routerLink="/accounting/courses" translate="Accounting" routerLinkActive="active" *ngIf="isLecturer"></a>
+            <a class="nav-item nav-link" routerLink="/reports" translate="Reports" routerLinkActive="active" *ngIf="isModerator"></a>
         </div>
         <button class="btn btn-link nav-item nav-link" (click)="logout()">{{user.username}}</button>
     </nav>

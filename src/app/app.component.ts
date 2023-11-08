@@ -1,4 +1,5 @@
 ﻿import { Component } from '@angular/core';
+import { TranslationService } from './_services/translation.service'; 
 
 import { AuthenticationService } from './_services';
 import { User, Role } from './_models';
