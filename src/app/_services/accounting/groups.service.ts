@@ -6,7 +6,7 @@ import { Group } from '@app/_models/interfaces/IGroup';
 import { User } from '@app/_models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GroupsService {
   user: User;
@@ -15,6 +15,8 @@ export class GroupsService {
   constructor(private http: HttpClient) {}
 
   getCourseGroups(courseId: number) {
-    return this.http.get<Group[]>(`${environment.apiUrlAcc}/accounting/lecturers/courses/${courseId}/groups`);
+    return this.http.get<Group[]>(
+      `${environment.apiUrlAcc}/accounting/lecturers/courses/${courseId}/groups`
+    );
   }
 }

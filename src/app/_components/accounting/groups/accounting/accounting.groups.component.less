@@ -1,154 +1,155 @@
 .component-header {
-    display: flex;
-    height: 70px;
-    width: 99.5vw;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    align-items: center;
-    background-color: #fbfcfd;
-    box-shadow: 0px 4px 10px rgba(229, 235, 255, 0.5);
-    padding-left: 25%;
+  display: flex;
+  height: 70px;
+  width: 99.5vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+  background-color: #fbfcfd;
+  box-shadow: 0px 4px 10px rgba(229, 235, 255, 0.5);
+  padding-left: 25%;
 }
 
 .card {
-    margin-top: 15px;
-    border: 1px solid rgba(199, 213, 255, 0.5);
-    width: 75vw;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+  margin-top: 15px;
+  border: 1px solid rgba(199, 213, 255, 0.5);
+  width: 75vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .table-container {
-    font-size: 12px;
-    overflow-x: auto;
+  font-size: 12px;
+  overflow-x: auto;
 }
 
 table {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
 
 .column-student {
-    resize: horizontal;
-    overflow: auto;
-    border: 1px solid rgba(199, 213, 255, 0.5);
-    padding: 8px;
-    text-align: center;
-    width: 250px;
-    min-width: 250px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background-color: white;
+  resize: horizontal;
+  overflow: auto;
+  border: 1px solid rgba(199, 213, 255, 0.5);
+  padding: 8px;
+  text-align: center;
+  width: 250px;
+  min-width: 250px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: white;
 }
 
 .column-student::after {
-    content: none !important;
+  content: none !important;
 }
 
 th {
-    position: relative;
-    border: 1px solid rgba(199, 213, 255, 0.5);
-    padding: 8px;
-    text-align: center;
+  position: relative;
+  border: 1px solid rgba(199, 213, 255, 0.5);
+  padding: 8px;
+  text-align: center;
 }
 
 td {
-    border: 1px solid rgba(199, 213, 255, 0.5);
-    padding: 8px;
-    text-align: center;
+  border: 1px solid rgba(199, 213, 255, 0.5);
+  padding: 8px;
+  text-align: center;
 }
 
 .back-button {
-    background-color: rgba(15, 71, 255, 0.89);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin-left: 50%;
+  background-color: rgba(15, 71, 255, 0.89);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 50%;
 }
 
 .back-button-header {
-    background: none;
-    border: none;
+  background: none;
+  border: none;
 }
 
 .back-button:hover {
-    background-color: rgba(0, 30, 150, 0.9);
+  background-color: rgba(0, 30, 150, 0.9);
 }
 
 .button-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-  
-.send-button, .xlsx-button {
-    background-color: rgba(15, 71, 255, 0.89);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.send-button,
+.xlsx-button {
+  background-color: rgba(15, 71, 255, 0.89);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
 
 .send-button:hover {
-    background-color: rgba(0, 30, 150, 0.9);
+  background-color: rgba(0, 30, 150, 0.9);
 }
 
 .xlsx-button:hover {
-    background-color: rgba(0, 30, 150, 0.9);
+  background-color: rgba(0, 30, 150, 0.9);
 }
 
 .fa-filter {
-    position: absolute; 
-    top: 50%;
-    right: 5px;
-    transform: translateY(-50%); 
-    font-size: 16px; 
-    transition: color 0.3s;
-    color: transparent; 
-    color: rgba(157, 199, 255, 0.5);
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  transition: color 0.3s;
+  color: transparent;
+  color: rgba(157, 199, 255, 0.5);
 }
 
 th:hover .fa-filter {
-    color: rgba(15, 71, 255, 0.89); 
+  color: rgba(15, 71, 255, 0.89);
 }
 
 .find-student {
-    border: 1px solid rgba(199, 213, 255, 0.5);
+  border: 1px solid rgba(199, 213, 255, 0.5);
 }
 
 .find-student:hover {
-    box-shadow: 0px 4px 10px rgba(136, 144, 173, 0.5);
+  box-shadow: 0px 4px 10px rgba(136, 144, 173, 0.5);
 }
 
 &:focus {
-    border: 1px solid rgba(199, 213, 255, 0.5);
-    box-shadow: 0px 4px 10px rgba(229, 235, 255, 0.5);
+  border: 1px solid rgba(199, 213, 255, 0.5);
+  box-shadow: 0px 4px 10px rgba(229, 235, 255, 0.5);
 }
 
 .table-container::-webkit-scrollbar {
-    width: 2px;
-    border-radius: 2px;
+  width: 2px;
+  border-radius: 2px;
 }
 
 .table-container::-webkit-scrollbar-thumb {
-    background-color: rgba(199, 213, 255, 0.5); 
-    border-radius: 4px; 
+  background-color: rgba(199, 213, 255, 0.5);
+  border-radius: 4px;
 }
 
 .table-container::-webkit-scrollbar-track {
-    background-color: #f8faff; 
+  background-color: #f8faff;
 }
 
 #square {
-    width: 25px;
-    height: 25px;
-    background: rgba(229, 235, 255, 0.5);
-    border: 1px solid rgba(199, 213, 255, 0.5);
+  width: 25px;
+  height: 25px;
+  background: rgba(229, 235, 255, 0.5);
+  border: 1px solid rgba(199, 213, 255, 0.5);
 }

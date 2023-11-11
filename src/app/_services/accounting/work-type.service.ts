@@ -6,10 +6,9 @@ import { environment } from '@environments/environment';
 import { formatISO } from 'date-fns';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WorkTypeService {
-
   private workDates: WorkDates[];
   private date: Date;
   private courseId: number;
@@ -51,18 +50,29 @@ export class WorkTypeService {
   }
 
   getWorkType() {
-    return this.http.get<TypeOfWork[]>(`${environment.apiUrlAcc}/accounting/workTypes`);
+    return this.http.get<TypeOfWork[]>(
+      `${environment.apiUrlAcc}/accounting/workTypes`
+    );
   }
 
-  setWorks(courseId: number, groupId: number, typeOfWorks: number[], workDate: Date) {
+  setWorks(
+    courseId: number,
+    groupId: number,
+    typeOfWorks: number[],
+    workDate: Date
+  ) {
     console.log(courseId);
     console.log(groupId);
     console.log(typeOfWorks);
-    console.log(formatISO(workDate, {representation: 'complete'}));
+    console.log(formatISO(workDate, { representation: 'complete' }));
 
-    return this.http.post<WorkDates[]>(`${environment.apiUrlAcc}/accounting/lecturers/courses/${courseId}/groups/${groupId}/dates/${formatISO(workDate, {representation: 'complete'})}/works`, 
-      typeOfWorks )
-        .subscribe(response =>
-          console.log(response))
+    return this.http
+      .post<WorkDates[]>(
+        `${environment.apiUrlAcc}/accounting/lecturers/courses/${courseId}/groups/${groupId}/dates/${formatISO(
+          workDate, { representation: 'complete' }
+        )}/works`,
+        typeOfWorks
+      )
+      .subscribe((response) => console.log(response));
   }
 }

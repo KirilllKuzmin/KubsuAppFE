@@ -6,25 +6,23 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
-  styleUrls: ['./report.component.less']
+  styleUrls: ['./report.component.less'],
 })
 export class ReportComponent implements OnInit {
-
   loading = false;
 
   constructor(
     private reportService: ReportService,
     private router: Router,
     private route: ActivatedRoute
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
-      this.loading = false;
+    this.loading = false;
   }
 
   printExcel() {
-    this.reportService.printTestReport().subscribe(blob => {
+    this.reportService.printTestReport().subscribe((blob) => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -32,11 +30,11 @@ export class ReportComponent implements OnInit {
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
-    })
+    });
   }
 
   downloadDocxReport() {
-    this.reportService.generateDocxReport().subscribe(blob => {
+    this.reportService.generateDocxReport().subscribe((blob) => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -46,5 +44,4 @@ export class ReportComponent implements OnInit {
       window.URL.revokeObjectURL(url);
     });
   }
-
 }

@@ -1,30 +1,45 @@
-﻿import { Component } from '@angular/core';
-import { TranslationService } from './_services/translation.service'; 
+﻿import { Component, OnInit } from '@angular/core';
+import { TranslationService } from './_services/translation.service';
 
 import { AuthenticationService } from './_services';
 import { User, Role } from './_models';
 
-@Component({ 
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.less']
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.less'],
 })
 export class AppComponent {
-    user?: User | null;
+  component: string = 'navigation';
+  user?: User | null;
+  content: any;
 
-    constructor(private authenticationService: AuthenticationService) {
-        this.authenticationService.user.subscribe(x => this.user = x);
-    }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private translationService: TranslationService
+  ) {
+    this.authenticationService.user.subscribe((x) => (this.user = x));
+  }
 
-    get isLecturer() {
-        return this.user?.roles.includes(Role.Lecturer);
-    }
+  ngOnInit() {
+    const language = 'ru';
 
-    get isModerator() {
-        return this.user?.roles.includes(Role.Moderator);
-    }
+    this.translationService
+      .getContent(this.component, language)
+      .subscribe((content: any) => {
+        this.content = content;
+      });
+  }
 
-    logout() {
-        this.authenticationService.logout();
-    }
+  get isLecturer() {
+    return this.user?.roles.includes(Role.Lecturer);
+  }
+
+  get isModerator() {
+    return this.user?.roles.includes(Role.Moderator);
+  }
+
+  logout() {
+    this.authenticationService.logout();
+  }
 }

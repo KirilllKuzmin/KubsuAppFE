@@ -93,7 +93,12 @@
             "inlineStyleLanguage": "less",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*.json",
+                "input": "src/assets/",
+                "output": "./assets/"
+              }
             ],
             "styles": [
               "src/styles.less"

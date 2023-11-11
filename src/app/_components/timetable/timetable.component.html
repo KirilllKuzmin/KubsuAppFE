@@ -1,6 +1,6 @@
 <div class="component-header">
     <h3>
-        <button *ngIf="userFromApi" class="back-button-header" (click)="null">Расписание пользователя: {{userFromApi.fullName}}</button>
+        <button *ngIf="userFromApi" class="back-button-header" (click)="null">{{ content.UserTimetable }}: {{userFromApi.fullName}}</button>
     </h3>
     <nav class="navbar navbar-expand-lg bg-white"></nav>
 </div>
@@ -8,9 +8,13 @@
 <div class="card">
     <div class="card-body">
         <div class="container" style="font-size: 16px; display: flex; justify-content: space-between; align-items: center;">
-            <div>Неделя: <span class="week-type">{{ weekNumber % 2 == 0 ? 'Знаменатель' : 'Числитель' }}</span></div>
+            <div>{{ content.Week }}: 
+                <span class="week-type">
+                    {{ weekNumber % 2 == 0 ? content.WeekType.Numerator : content.WeekType.Denomerator }}
+                </span>
+            </div>
             <div>
-                <button class="button-today" (click)="getTimetablesForNow()">Сегодня</button>
+                <button class="button-today" (click)="getTimetablesForNow()">{{ content.Now }}</button>
                 <button class="button-left" (click)="getTimetablesForPreviousWeek()"><</button>
                 <button class="button-right" (click)="getTimetablesForNextWeek()">></button>
             </div>
@@ -27,7 +31,7 @@
                 <thead>
                   <tr>
                     <th>№</th>
-                    <th>Время</th>
+                    <th>{{ content.Time }}</th>
                     <th *ngFor="let day of weeklyDates" 
                         class="date-attribute"
                         [ngStyle]="{'background-color': isNowDay(day.date) ? 'rgba(229, 235, 255, 0.5)' : 'white'}">
@@ -54,7 +58,7 @@
                                                     </span>
                                                 </div>
                                                 <div class="course-name" style="min-width: 130px;">{{ timetable.course.name }}</div>
-                                                <div class="course-type" style="min-width: 130px;">Группы: {{ getGroupNamesByIds(timetable.timetableGroup) }}</div>
+                                                <div class="course-type" style="min-width: 130px;">{{ content.Groups }}: {{ getGroupNamesByIds(timetable.timetableGroup) }}</div>
                                         </a>
                                     </div>
                                 </li>

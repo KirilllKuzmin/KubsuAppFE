@@ -7,17 +7,17 @@ import { Group } from '@app/_models/interfaces/IGroup';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-    getAll() {
-        return this.http.get<User[]>(`${environment.apiUrl}/users/all`);
-    }
+  getAll() {
+    return this.http.get<User[]>(`${environment.apiUrl}/users/all`);
+  }
 
-    getById() {
-        return this.http.get<User>(`${environment.apiUrl}/users`);
-    }
+  getById() {
+    return this.http.get<User>(`${environment.apiUrl}/users`);
+  }
 
-    getAllGroupNames() {
-        return this.http.get<Group[]>(`${environment.apiUrl}/users/groups`);
-    }
+  getAllGroupNames() {
+    return this.http.get<Group[]>(`${environment.apiUrl}/users/groups`);
+  }
 }

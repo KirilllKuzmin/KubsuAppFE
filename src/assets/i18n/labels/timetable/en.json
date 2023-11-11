@@ -1,0 +1,11 @@
+{
+    "UserTimetable": "Timetable for user",
+    "Week": "Week",
+    "WeekType": {
+        "Numerator": "Numerator",
+        "Denomerator": "Denomerator"
+    },
+    "Now": "Current week",
+    "Time": "Time",
+    "Groups": "Groups"
+}

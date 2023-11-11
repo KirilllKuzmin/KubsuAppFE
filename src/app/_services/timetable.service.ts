@@ -6,14 +6,15 @@ import { NumTimeClassHeld } from '@app/_models/interfaces/INumTimeClassHeld';
 import { Timetable } from '@app/_models/interfaces/ITimetable';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TimetableService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getNumTimeClassHeld() {
-    return this.http.get<NumTimeClassHeld[]>(`${environment.apiUrlAcc}/timetables/number-time-classes-held`);
+    return this.http.get<NumTimeClassHeld[]>(
+      `${environment.apiUrlAcc}/timetables/number-time-classes-held`
+    );
   }
 
   getAllTimetable(startDate: Date, endDate: Date) {
@@ -21,6 +22,8 @@ export class TimetableService {
       .set('start_date', startDate.toISOString())
       .set('end_date', endDate.toISOString());
 
-    return this.http.get<Timetable[]>(`${environment.apiUrlAcc}/timetables`, { params: params });
+    return this.http.get<Timetable[]>(`${environment.apiUrlAcc}/timetables`, {
+      params: params,
+    });
   }
 }
