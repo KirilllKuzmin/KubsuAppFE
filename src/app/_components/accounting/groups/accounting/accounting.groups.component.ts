@@ -204,20 +204,26 @@ export class AccountingGroupComponent implements OnInit {
       if (!this.editedData[index].isWorkDate) {
 
         if (this.editedData[index].value === "О" || this.editedData[index].value === "о") {
+
           this.editedData[index].value = 1
           this.accountingGroupService.setAbsence(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
         } else if (this.editedData[index].value === "Б" || this.editedData[index].value === "б") {
+
           this.editedData[index].value = 2
           this.accountingGroupService.setAbsence(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
         } else if (this.editedData[index].value === "Н" || this.editedData[index].value === "н") {
+
           this.editedData[index].value = 3
           this.accountingGroupService.setAbsence(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
         } else if (this.editedData[index].value === "") {
+
           this.accountingGroupService.setAbsence(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
         }
       } else if (this.editedData[index].isWorkDate && this.editedData[index].value >= 2 && this.editedData[index].value <= 5) {
+
         this.accountingGroupService.setEvaluation(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, parseInt(this.editedData[index].value) - 1);
       } else if (this.editedData[index].isWorkDate && this.editedData[index].value === "") {
+        
         this.accountingGroupService.setEvaluation(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
       }
     }
