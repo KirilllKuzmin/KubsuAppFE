@@ -67,13 +67,13 @@ export class AccountingGroupComponent implements OnInit {
       const evaluationDatesRequest = this.accountingGroupService.getEvaluationsStudent(this.courseId, this.groupId);
       const workDatesRequest = this.accountingGroupService.getWorkDates(this.courseId, this.groupId);
 
-      forkJoin([studentsRequest, timetableDatesRequest, absenceDatesRequest, evaluationDatesRequest, workDatesRequest]).pipe(first()).subscribe(
-        ([students, dates, absences, evaluations, workDates]) => {
+      forkJoin([studentsRequest, timetableDatesRequest, absenceDatesRequest, /*evaluationDatesRequest,*/ workDatesRequest]).pipe(first()).subscribe(
+        ([students, dates, absences, /*evaluations,*/ workDates]) => {
           this.loading = false;
           this.students = students;
           this.dates = dates.map(dateString => new Date(dateString));
           this.absences = absences;
-          this.evaluations = evaluations;
+          //this.evaluations = evaluations;
           this.workDates = workDates;
 
           const daysInMonthMap: { [month: string]: number } = {};

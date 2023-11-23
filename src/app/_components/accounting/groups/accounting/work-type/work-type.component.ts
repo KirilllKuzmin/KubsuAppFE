@@ -4,6 +4,7 @@ import { WorkTypeService } from '@app/_services/accounting/work-type.service';
 import { first } from 'rxjs/operators';
 import { WorkDates } from '@app/_models/interfaces/IWorkDates';
 import { forkJoin } from 'rxjs';
+import { SetWorkDate } from '@app/_models/interfaces/ISetWorkDate';
 
 @Component({
   selector: 'app-work-type',
@@ -19,6 +20,11 @@ export class WorkTypeComponent implements OnInit {
   groupId = this.workTypeService.getGroupId();
   date = this.workTypeService.getDate();
   isChecked: boolean[] = [];
+
+  //ВР
+  minGrade: number;
+  maxGrade: number;
+  passingGrade: number;
 
   constructor(private workTypeService: WorkTypeService) {}
 
@@ -72,22 +78,31 @@ export class WorkTypeComponent implements OnInit {
 
   sendWorkType() {
     let checkAnyTrue = false;
-    let workTypeIds: number[] = [];
+    //let workTypeIds: number[] = [];
+    let setWorkDates: SetWorkDate[] = [];
 
     for (let i = 0; i < this.isChecked.length; i++) {
       console.log(i + ' ' + this.isChecked[i]);
       if (this.isChecked[i] === true) {
         checkAnyTrue = true;
-        workTypeIds.push(i);
+        
+        let setWorkDate: SetWorkDate = {
+          typeOfWorkId: i,
+          minGrade: 2,
+          maxGrade: 5,
+          passingGrade: 3
+        };
+
+        setWorkDates.push(setWorkDate);
       }
     }
 
     this.workTypeService.setWorks(
       this.courseId,
       this.groupId,
-      workTypeIds,
+      setWorkDates,
       this.date
     );
-    window.location.reload();
+    //window.location.reload();
   }
 }

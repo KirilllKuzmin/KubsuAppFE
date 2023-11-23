@@ -17,6 +17,12 @@
                 <label>
                     <input type="checkbox" [(ngModel)]="isChecked[workType.id]" [value]="workType" (change)="toggleSelection(workType)"> {{ workType.name }}
                 </label>
+
+                <div *ngIf="isChecked[workType.id]">
+                    <input type="number" placeholder="Введите число 1" [(ngModel)]="minGrade">
+                    <input type="number" placeholder="Введите число 2" [(ngModel)]="maxGrade">
+                    <input type="number" placeholder="Введите число 3" [(ngModel)]="passingGrade">
+                </div>
             </div>
         </div>
         <div class="footer">

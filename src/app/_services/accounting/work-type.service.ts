@@ -4,6 +4,7 @@ import { TypeOfWork } from '@app/_models/interfaces/ITypeOfWork';
 import { WorkDates } from '@app/_models/interfaces/IWorkDates';
 import { environment } from '@environments/environment';
 import { formatISO } from 'date-fns';
+import { SetWorkDate } from '@app/_models/interfaces/ISetWorkDate';
 
 @Injectable({
   providedIn: 'root',
@@ -58,7 +59,7 @@ export class WorkTypeService {
   setWorks(
     courseId: number,
     groupId: number,
-    typeOfWorks: number[],
+    typeOfWorks: SetWorkDate[],
     workDate: Date
   ) {
     console.log(courseId);
