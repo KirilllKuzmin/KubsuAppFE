@@ -6,6 +6,7 @@ import { WorkDates } from '@app/_models/interfaces/IWorkDates';
 import { forkJoin } from 'rxjs';
 import { SetWorkDate } from '@app/_models/interfaces/ISetWorkDate';
 import { CheckedWorkType } from '@app/_models/interfaces/ICheckedWorkType';
+import { EvaluationGradeSystem } from '@app/_models/interfaces/IEvaluationGradeSystem';
 
 @Component({
   selector: 'app-work-type',
@@ -39,24 +40,25 @@ export class WorkTypeComponent implements OnInit {
         this.workTypes = workTypes;
 
         for (const workType of this.workTypes) {
+          let workDate = this.workDates.find(workDate => workDate.typeOfWork.id === workType.id);
           if (
             this.workDates.some(
               (workDate) => workDate.typeOfWork.id === workType.id
             )
           ) {
-            console.log(this.checkedWorkType);
+            console.log(this.workDates);
             this.checkedWorkType[workType.id] = {
               isChecked: true,
-              minGrade: 0, //Из accounting.group тянем бальную систему с typeOfWorkId и подставляем
-              maxGrade: 0, 
-              passingGrade: 0
+              minGrade: workDate?.evaluationGradeSystem?.minGrade!, 
+              maxGrade: workDate?.evaluationGradeSystem?.maxGrade!, 
+              passingGrade: workDate?.evaluationGradeSystem?.passingGrade!
             };
           } else {
             this.checkedWorkType[workType.id] = {
               isChecked: false,
-              minGrade: 0,
-              maxGrade: 0, 
-              passingGrade: 0
+              minGrade: workDate?.evaluationGradeSystem?.minGrade!,
+              maxGrade: workDate?.evaluationGradeSystem?.maxGrade!, 
+              passingGrade: workDate?.evaluationGradeSystem?.passingGrade!
             };
           }
         }
@@ -77,6 +79,11 @@ export class WorkTypeComponent implements OnInit {
       const workDate: WorkDates = {
         typeOfWork: workType,
         workDateTime: this.date,
+        evaluationGradeSystem: {
+          minGrade: 0,
+          maxGrade: 0,
+          passingGrade: 0
+        }
       };
       this.workDates.push(workDate);
     }

@@ -18,7 +18,7 @@
   top: 60px;
   left: 35%;
   width: 30%;
-  height: 30%;
+  max-height: 80vh; 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -37,6 +37,7 @@
 
 .radio-content {
   padding: 20px;
+  overflow-y: auto;
 }
 
 .close-button {
@@ -91,4 +92,62 @@ button:hover {
 
 .close-button:hover {
   background-color: rgba(199, 213, 255, 0.5);
+}
+
+.grade-system {
+  background-color: #f4f6ff;
+  border: 1px solid rgba(199, 213, 255, 0.5); /* Рамка для grade-system */
+  box-shadow: 0px 1px 4px rgba(179, 183, 190, 0.5);
+  border-radius: 5px; /* Закругление углов рамки */
+  padding: 10px; /* Внутренний отступ вокруг grade-system */
+  margin-top: 7px; /* Расстояние между grade-system и предыдущим элементом */
+  margin-bottom: 7px;
+}
+
+.grade-system input:first-child {
+  margin-left: 0; /* Установите отступ слева в ноль для первого input в grade-system */
+}
+
+.input-container {
+  margin-top: 7px;
+  margin-bottom: 7px;
+  margin-left: 0;
+}
+
+.input-container input {
+  font-size: 14px;
+  border: 1px solid rgba(199, 213, 255, 0.678);
+  border-radius: 3px; 
+  padding: 4px; 
+}
+
+.input-container input:focus {
+  outline: none; 
+  border: 1px solid rgba(199, 213, 255, 0.5);
+  box-shadow: 0px 1px 3px rgba(179, 183, 190, 0.5);
+}
+
+input[type="number"] {
+  padding: 8px;
+  border: 1px solid rgba(199, 213, 255, 0.5);
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+input[type="number"]::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+}
+
+.radio-content::-webkit-scrollbar {
+  width: 8px; 
+  border-radius: 8px; 
+}
+
+.radio-content::-webkit-scrollbar-thumb {
+  background-color: #dadada;
+  border-radius: 8px;
+}
+
+.radio-content::-webkit-scrollbar-track {
+  background-color: #f9faff;
 }

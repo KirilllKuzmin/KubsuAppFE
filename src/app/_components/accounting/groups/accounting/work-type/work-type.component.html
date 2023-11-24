@@ -1,13 +1,5 @@
 <div class="modal">
     <div class="modal-content">
-        <!-- <h3>Выберите тип проводимых работ: </h3>
-        <div *ngFor="let workType of workTypes">
-            <label>
-                <input type="radio" [(ngModel)]="selectedWorkType" [value]="workType.id"> {{ workType.name }}
-            </label>
-        </div>
-        <button (click)="sendWorkType()">Отправить</button>
-        <button (click)="closeModal()">Закрыть</button> -->
         <div class="header">
             <span>Выберите тип проводимой работы</span>
             <button class="close-button" (click)="closeModal()">&times;</button>
@@ -18,10 +10,16 @@
                     <input type="checkbox" [(ngModel)]="checkedWorkType[workType.id].isChecked" [value]="workType" (change)="toggleSelection(workType)"> {{ workType.name }}
                 </label>
 
-                <div *ngIf="checkedWorkType[workType.id].isChecked">
-                    <input type="number" placeholder="Введите число 1" [(ngModel)]="checkedWorkType[workType.id].minGrade">
-                    <input type="number" placeholder="Введите число 2" [(ngModel)]="checkedWorkType[workType.id].maxGrade">
-                    <input type="number" placeholder="Введите число 3" [(ngModel)]="checkedWorkType[workType.id].passingGrade">
+                <div class="grade-system" *ngIf="checkedWorkType[workType.id].isChecked">
+                    <div class="input-container"> 
+                        <input type="number" placeholder="Введите число" [(ngModel)]="checkedWorkType[workType.id].minGrade"> - минимальный балл
+                    </div>
+                    <div class="input-container"> 
+                        <input type="number" placeholder="Введите число" [(ngModel)]="checkedWorkType[workType.id].maxGrade"> - максимальный балл
+                    </div>
+                    <div class="input-container"> 
+                        <input type="number" placeholder="Введите число" [(ngModel)]="checkedWorkType[workType.id].passingGrade"> - проходной балл
+                    </div>
                 </div>
             </div>
         </div>
