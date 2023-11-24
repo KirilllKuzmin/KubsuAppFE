@@ -138,8 +138,13 @@ export class TimetableComponent implements OnInit {
     });
   }
 
-  navigateToCourseGroups(courseId: number) {
-    this.router.navigate(['accounting/courses', courseId, 'groups']);
+  navigateToCourseGroups(courseId: number, groups: TimetableGroup[]) {
+    if (groups.length > 1) {
+      console.log(groups[0].groupId);
+      this.router.navigate(['accounting/courses', courseId, 'groups']);
+    } else {
+      this.router.navigate(['accounting/courses', courseId, 'groups', groups[0].groupId]);
+    }
   }
 
   isNowDay(day: Date): boolean {

@@ -50,7 +50,7 @@
                                     <div  class="nav-div">
                                         <a class="nav-link rounded-2 text-black"
                                             *ngIf="i < 1" 
-                                            (click)="navigateToCourseGroups(timetable.course.id)">
+                                            (click)="navigateToCourseGroups(timetable.course.id, timetable.timetableGroup)">
                                                 <div class="course-type">
                                                     <span class="name">{{ timetable.course.courseType.name }}</span>
                                                     <span class="classroom" *ngIf="timetable.classroom.classroomNumber !== &quot;Не определена&quot;">

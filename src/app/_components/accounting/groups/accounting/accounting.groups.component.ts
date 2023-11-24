@@ -331,7 +331,7 @@ export class AccountingGroupComponent implements OnInit {
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
 
-    ws['!cols'] = [{ width: 15 }, { width: 15 }]
+    ws['!cols'] = [{ width: 35 }, { width: 15 }]
 
     XLSX.utils.book_append_sheet(wb, ws, 'Журнал группы');
 
