@@ -44,4 +44,16 @@ export class ReportComponent implements OnInit {
       window.URL.revokeObjectURL(url);
     });
   }
+
+  downloadReport() {
+    this.reportService.generateAbsenceReport().subscribe((blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Посещаемость группы по предметам.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
+  }
 }

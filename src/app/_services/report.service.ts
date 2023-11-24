@@ -20,4 +20,10 @@ export class ReportService {
       responseType: 'blob',
     });
   }
+
+  generateAbsenceReport() {
+    return this.http.get(`${environment.apiUrlRep}/absences/groups/432`, {
+      responseType: 'blob',
+    });
+  }
 }
