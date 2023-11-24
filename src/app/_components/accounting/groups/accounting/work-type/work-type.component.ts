@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { WorkDates } from '@app/_models/interfaces/IWorkDates';
 import { forkJoin } from 'rxjs';
 import { SetWorkDate } from '@app/_models/interfaces/ISetWorkDate';
+import { CheckedWorkType } from '@app/_models/interfaces/ICheckedWorkType';
 
 @Component({
   selector: 'app-work-type',
@@ -19,7 +20,7 @@ export class WorkTypeComponent implements OnInit {
   courseId = this.workTypeService.getCourseId();
   groupId = this.workTypeService.getGroupId();
   date = this.workTypeService.getDate();
-  isChecked: boolean[] = [];
+  checkedWorkType: CheckedWorkType[] = [];
 
   //ВР
   minGrade: number;
@@ -43,9 +44,20 @@ export class WorkTypeComponent implements OnInit {
               (workDate) => workDate.typeOfWork.id === workType.id
             )
           ) {
-            this.isChecked[workType.id] = true;
+            console.log(this.checkedWorkType);
+            this.checkedWorkType[workType.id] = {
+              isChecked: true,
+              minGrade: 0, //Из accounting.group тянем бальную систему с typeOfWorkId и подставляем
+              maxGrade: 0, 
+              passingGrade: 0
+            };
           } else {
-            this.isChecked[workType.id] = false;
+            this.checkedWorkType[workType.id] = {
+              isChecked: false,
+              minGrade: 0,
+              maxGrade: 0, 
+              passingGrade: 0
+            };
           }
         }
       });
@@ -81,16 +93,16 @@ export class WorkTypeComponent implements OnInit {
     //let workTypeIds: number[] = [];
     let setWorkDates: SetWorkDate[] = [];
 
-    for (let i = 0; i < this.isChecked.length; i++) {
-      console.log(i + ' ' + this.isChecked[i]);
-      if (this.isChecked[i] === true) {
+    for (let i = 0; i < this.checkedWorkType.length; i++) {
+      console.log(i + ' ' + this.checkedWorkType[i]?.isChecked);
+      if (this.checkedWorkType[i]?.isChecked === true) {
         checkAnyTrue = true;
         
         let setWorkDate: SetWorkDate = {
           typeOfWorkId: i,
-          minGrade: 2,
-          maxGrade: 5,
-          passingGrade: 3
+          minGrade: this.checkedWorkType[i]?.minGrade,
+          maxGrade: this.checkedWorkType[i]?.maxGrade,
+          passingGrade: this.checkedWorkType[i]?.passingGrade
         };
 
         setWorkDates.push(setWorkDate);

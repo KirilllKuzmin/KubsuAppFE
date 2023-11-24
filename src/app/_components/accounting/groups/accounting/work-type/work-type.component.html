@@ -15,13 +15,13 @@
         <div class="radio-content">
             <div *ngFor="let workType of workTypes">
                 <label>
-                    <input type="checkbox" [(ngModel)]="isChecked[workType.id]" [value]="workType" (change)="toggleSelection(workType)"> {{ workType.name }}
+                    <input type="checkbox" [(ngModel)]="checkedWorkType[workType.id].isChecked" [value]="workType" (change)="toggleSelection(workType)"> {{ workType.name }}
                 </label>
 
-                <div *ngIf="isChecked[workType.id]">
-                    <input type="number" placeholder="Введите число 1" [(ngModel)]="minGrade">
-                    <input type="number" placeholder="Введите число 2" [(ngModel)]="maxGrade">
-                    <input type="number" placeholder="Введите число 3" [(ngModel)]="passingGrade">
+                <div *ngIf="checkedWorkType[workType.id].isChecked">
+                    <input type="number" placeholder="Введите число 1" [(ngModel)]="checkedWorkType[workType.id].minGrade">
+                    <input type="number" placeholder="Введите число 2" [(ngModel)]="checkedWorkType[workType.id].maxGrade">
+                    <input type="number" placeholder="Введите число 3" [(ngModel)]="checkedWorkType[workType.id].passingGrade">
                 </div>
             </div>
         </div>
