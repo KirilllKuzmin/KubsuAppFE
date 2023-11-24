@@ -8,6 +8,7 @@ import { User } from '@app/_models';
 import { catchError, tap } from 'rxjs';
 import { Absence } from '@app/_models/interfaces/IAbsence';
 import { Evaluation } from '@app/_models/interfaces/IEvaluation';
+import { EvaluationRequest } from '@app/_models/interfaces/IEvaluationRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -62,19 +63,12 @@ export class AccountingGroupService {
   }
 
   setEvaluation(
-    studentId: number,
-    courseId: number,
-    evaluationDate: Date,
-    evaluationTypeId: number
+    evaluation: EvaluationRequest[]
   ) {
-    console.log(studentId);
-    console.log(courseId);
-    console.log(evaluationDate);
-    console.log(evaluationTypeId);
     return this.http
       .post<string>(
         `${environment.apiUrlAcc}/accounting/lecturers/evaluations`,
-        { studentId, courseId, evaluationDate, evaluationTypeId }
+         evaluation 
       )
       .subscribe((response) => console.log(response));
   }

@@ -13,6 +13,7 @@ import { Month } from '@app/_models/enums/EMonths';
 
 import * as XLSX from 'xlsx';
 import { TypeOfWork } from '@app/_models/interfaces/ITypeOfWork';
+import { EvaluationRequest } from '@app/_models/interfaces/IEvaluationRequest';
 
 @Component({
   selector: 'app-accounting-group',
@@ -67,13 +68,13 @@ export class AccountingGroupComponent implements OnInit {
       const evaluationDatesRequest = this.accountingGroupService.getEvaluationsStudent(this.courseId, this.groupId);
       const workDatesRequest = this.accountingGroupService.getWorkDates(this.courseId, this.groupId);
 
-      forkJoin([studentsRequest, timetableDatesRequest, absenceDatesRequest, /*evaluationDatesRequest,*/ workDatesRequest]).pipe(first()).subscribe(
-        ([students, dates, absences, /*evaluations,*/ workDates]) => {
+      forkJoin([studentsRequest, timetableDatesRequest, absenceDatesRequest, evaluationDatesRequest, workDatesRequest]).pipe(first()).subscribe(
+        ([students, dates, absences, evaluations, workDates]) => {
           this.loading = false;
           this.students = students;
           this.dates = dates.map(dateString => new Date(dateString));
           this.absences = absences;
-          //this.evaluations = evaluations;
+          this.evaluations = evaluations;
           this.workDates = workDates;
 
           const daysInMonthMap: { [month: string]: number } = {};
@@ -113,11 +114,11 @@ export class AccountingGroupComponent implements OnInit {
       );
   }
 
-  hasUserIdAndDate(userId: number, absenceDate: Date) {
+  hasUserIdAndDate(userId: number, absenceDate: Date, typeOfWork: number) {
 
-    const hasStudentWithIdAndDateO = this.absences.some(item => item.student.userId === userId && new Date(item.absenceDate).toString() === absenceDate.toString() && item.absenceType.id === 1);
-    const hasStudentWithIdAndDateB = this.absences.some(item => item.student.userId === userId && new Date(item.absenceDate).toString() === absenceDate.toString() && item.absenceType.id === 2);
-    const hasStudentWithIdAndDateN = this.absences.some(item => item.student.userId === userId && new Date(item.absenceDate).toString() === absenceDate.toString() && item.absenceType.id === 3);
+    const hasStudentWithIdAndDateO = this.absences.some(item => item.student.userId === userId && new Date(item.absenceDate).toString() === absenceDate.toString() && item.absenceType.id === 1 && !typeOfWork);
+    const hasStudentWithIdAndDateB = this.absences.some(item => item.student.userId === userId && new Date(item.absenceDate).toString() === absenceDate.toString() && item.absenceType.id === 2 && !typeOfWork);
+    const hasStudentWithIdAndDateN = this.absences.some(item => item.student.userId === userId && new Date(item.absenceDate).toString() === absenceDate.toString() && item.absenceType.id === 3 && !typeOfWork);
 
     const hasStudentWithIdAndDateEvaluation = this.evaluations
       .some(item => item.student.userId === userId && new Date(item.evaluationDate).toString() === absenceDate.toString());
@@ -130,8 +131,8 @@ export class AccountingGroupComponent implements OnInit {
       return "О";
     } else if (hasStudentWithIdAndDateEvaluation) {
       let evaluationFiltered = this.evaluations
-        .filter(item => item.student.userId === userId && new Date(item.evaluationDate).toString() === absenceDate.toString())
-        .map(item => item.evaluationType.evaluationNumber);
+        .filter(item => item.student.userId === userId && new Date(item.evaluationDate).toString() === absenceDate.toString() && item.workDate.typeOfWork.id === typeOfWork)
+        .map(item => item.evaluationGrade.pointNumber);
 
       const stringEvaluationFiltered: string = evaluationFiltered.join(', ');
       return stringEvaluationFiltered;
@@ -175,7 +176,13 @@ export class AccountingGroupComponent implements OnInit {
 
   editedData: any[] = [];
 
-  onEnterKey(event: any, student: Student, date: Date, i: number, j: number, isWorkDate: boolean) {
+  onEnterKey(event: any, 
+             student: Student, 
+             typeOfWorkId: number, 
+             date: Date, 
+             i: number, 
+             j: number, 
+             evaluationGradeSystemId: number) {
     console.log(event);
     console.log(event.target.innerText);
 
@@ -187,9 +194,11 @@ export class AccountingGroupComponent implements OnInit {
 
     this.editedData.push({
       student,
+      typeOfWorkId,
       date,
       value: modifiedValue,
-      isWorkDate: this.isWorkDate(date)
+      evaluationGradeSystemId,
+      isWorkDate: this.isWorkDateAndType(date, typeOfWorkId)
     });
 
     console.log(this.editedData);
@@ -198,6 +207,8 @@ export class AccountingGroupComponent implements OnInit {
   //Очень не эффективно, переделать!!!
   sendAbsences() {
     console.log("Отправляем: ");
+
+    let evaluationRequest: EvaluationRequest[] = [];
 
     for (let index = 0; index < this.editedData.length; index++) {
       console.log(this.editedData[index].value);
@@ -219,14 +230,29 @@ export class AccountingGroupComponent implements OnInit {
 
           this.accountingGroupService.setAbsence(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
         }
-      } else if (this.editedData[index].isWorkDate && this.editedData[index].value >= 2 && this.editedData[index].value <= 5) {
-
-        this.accountingGroupService.setEvaluation(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, parseInt(this.editedData[index].value) - 1);
       } else if (this.editedData[index].isWorkDate && this.editedData[index].value === "") {
+
+        evaluationRequest.push({
+          studentId: this.editedData[index].student.userId, 
+          courseId: this.courseId, 
+          typeOfWorkId: this.editedData[index].typeOfWorkId, 
+          evaluationDate: this.editedData[index].date, 
+          evaluationGradeSystemId: this.editedData[index].evaluationGradeSystemId, 
+          pointNumber: this.editedData[index].value})
         
-        this.accountingGroupService.setEvaluation(this.editedData[index].student.userId, this.courseId, this.editedData[index].date, this.editedData[index].value);
-      }
+      } else if (this.editedData[index].isWorkDate) {
+        evaluationRequest.push({
+          studentId: this.editedData[index].student.userId, 
+          courseId: this.courseId, 
+          typeOfWorkId: this.editedData[index].typeOfWorkId, 
+          evaluationDate: this.editedData[index].date, 
+          evaluationGradeSystemId: this.editedData[index].evaluationGradeSystemId, 
+          pointNumber: parseFloat(this.editedData[index].value)
+        })
+
+      } 
     }
+    this.accountingGroupService.setEvaluation(evaluationRequest);
     
     window.location.reload();
   }
@@ -242,6 +268,10 @@ export class AccountingGroupComponent implements OnInit {
 
   isWorkDate(date: Date): boolean {
     return this.workDates.some(workDate => new Date(workDate.workDateTime).getTime() === date.getTime());
+  }
+
+  isWorkDateAndType(date: Date, typeOfWorkId: number): boolean {
+    return this.workDates.some(workDate => new Date(workDate.workDateTime).getTime() === date.getTime() && workDate.typeOfWork.id === typeOfWorkId);
   }
 
   getWorkType(date: Date) {

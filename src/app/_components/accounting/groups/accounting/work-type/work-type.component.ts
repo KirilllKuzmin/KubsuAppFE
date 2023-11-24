@@ -80,6 +80,7 @@ export class WorkTypeComponent implements OnInit {
         typeOfWork: workType,
         workDateTime: this.date,
         evaluationGradeSystem: {
+          id: 0,
           minGrade: 0,
           maxGrade: 0,
           passingGrade: 0
@@ -122,6 +123,6 @@ export class WorkTypeComponent implements OnInit {
       setWorkDates,
       this.date
     );
-    //window.location.reload();
+    window.location.reload();
   }
 }

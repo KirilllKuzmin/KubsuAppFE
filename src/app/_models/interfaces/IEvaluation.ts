@@ -1,8 +1,10 @@
 import { Student } from "./IStudent";
-import { EvaluationType } from "./IEvaluationType";
+import { EvaluationGrade } from "./IEvaluationGrade";
+import { WorkDates } from "./IWorkDates";
 
 export interface Evaluation {
     student: Student;
     evaluationDate: Date;
-    evaluationType: EvaluationType;
+    evaluationGrade: EvaluationGrade;
+    workDate: WorkDates;
 }
