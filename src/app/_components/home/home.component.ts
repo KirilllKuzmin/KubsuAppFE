@@ -23,13 +23,13 @@ export class HomeComponent {
   }
 
   ngOnInit() {
-    this.loading = true;
-    this.userService
-      .getById()
-      .pipe(first())
-      .subscribe((user) => {
-        this.loading = false;
-        this.userFromApi = user;
-      });
+    // this.loading = true;
+    // this.userService
+    //   .getById()
+    //   .pipe(first())
+    //   .subscribe((user) => {
+    //     this.loading = false;
+    //     this.userFromApi = user;
+    //   });
   }
 }

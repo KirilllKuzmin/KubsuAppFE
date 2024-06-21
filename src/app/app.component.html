@@ -8,7 +8,7 @@
             <a class="nav-item nav-link" routerLink="/accounting/courses" routerLinkActive="active" *ngIf="isLecturer">{{ content.Accounting }}</a>
             <a class="nav-item nav-link" routerLink="/reports" routerLinkActive="active" *ngIf="isModerator">{{ content.Reports }}</a>
         </div>
-        <button class="btn btn-link nav-item nav-link" (click)="logout()">logout{{ user?.username }}</button>
+        <button class="btn btn-link nav-item nav-link" (click)="logout()">{{ user?.username }}</button>
     </nav>
 </div>
 

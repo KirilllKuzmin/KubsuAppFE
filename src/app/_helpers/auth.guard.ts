@@ -1,17 +1,11 @@
 ﻿import { Injectable, inject } from '@angular/core';
-import {
-  Router,
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  CanActivateFn,
-} from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateFn } from '@angular/router';
 
 import { AuthenticationService } from '@app/_services';
 import { KeycloakService } from '@app/_services/keycloak/keycloak.service';
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
+export class AuthGuard  {
   constructor(
     private router: Router,
     private authenticationService: KeycloakService
@@ -26,10 +20,8 @@ export class AuthGuard implements CanActivate {
       //   this.router.navigate(['/']);
       //   return false;
       // }
-    console.log(route.data.roles);
     if (this.authenticationService.keycloak.isTokenExpired()) {
       this.router.navigate(['login']);
-      console.log(route.data.roles);
       return false;
     }
 

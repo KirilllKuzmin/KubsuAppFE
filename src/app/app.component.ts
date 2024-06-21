@@ -12,16 +12,14 @@ import { KeycloakService } from './_services/keycloak/keycloak.service';
 })
 export class AppComponent {
   component: string = 'navigation';
-  user?: User | null;
+  user?: User | undefined;
   content: any;
 
   constructor(
-    private authenticationService: AuthenticationService,
     private translationService: TranslationService,
     private keycloakService: KeycloakService
   ) {
-    this.authenticationService.user.subscribe((x) => (this.user = x));
-    //this.keycloakService.keycloak.
+    this.user = this.keycloakService.profile;
   }
 
   ngOnInit() {
@@ -35,11 +33,20 @@ export class AppComponent {
   }
 
   get isLecturer() {
-    return this.user?.roles?.includes(Role.Lecturer);
+    return this.getUserRoles().includes(Role.Lecturer);
   }
 
   get isModerator() {
-    return this.user?.roles?.includes(Role.Moderator);
+    return this.getUserRoles().includes(Role.Moderator);
+  }
+
+  getUserRoles(): string[] {
+    const roles: string[] = [];
+    const realmAccess = this.keycloakService.keycloak.realmAccess;
+    if (realmAccess) {
+        roles.push(...realmAccess.roles);
+    }
+    return roles;
   }
 
   logout() {
