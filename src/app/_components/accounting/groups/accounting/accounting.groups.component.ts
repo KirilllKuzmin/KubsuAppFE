@@ -254,7 +254,7 @@ export class AccountingGroupComponent implements OnInit {
     }
     this.accountingGroupService.setEvaluation(evaluationRequest);
     
-    window.location.reload();
+    //window.location.reload();
   }
 
   isEditable(date: Date): boolean {

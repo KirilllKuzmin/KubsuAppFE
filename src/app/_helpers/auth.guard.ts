@@ -1,34 +1,52 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, inject } from '@angular/core';
 import {
   Router,
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
+  CanActivateFn,
 } from '@angular/router';
 
 import { AuthenticationService } from '@app/_services';
+import { KeycloakService } from '@app/_services/keycloak/keycloak.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: KeycloakService
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const user = this.authenticationService.userValue;
-    if (user) {
-      const { roles } = route.data;
-      if (roles && !roles.includes(user.roles[0])) {
+    //const user = this.authenticationService.userValue;
+    //if (user) {
+      // const { roles } = route.data;
+      // if (roles && !roles.includes(user.roles[0])) {
         
-        this.router.navigate(['/']);
-        return false;
-      }
-
-      return true;
+      //   this.router.navigate(['/']);
+      //   return false;
+      // }
+    console.log(route.data.roles);
+    if (this.authenticationService.keycloak.isTokenExpired()) {
+      this.router.navigate(['login']);
+      console.log(route.data.roles);
+      return false;
     }
 
-    this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-    return false;
+    return true;
+    //}
+
+    //this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+    //return false;
   }
 }
+
+// export const authGuard: CanActivateFn = () => {
+//   const keycloakService = inject(KeycloakService);
+//   const router = inject(Router);
+//   if (keycloakService.keycloak.isTokenExpired()) {
+//     router.navigate(['login']);
+//     return false;
+//   }
+//   return true;
+// };

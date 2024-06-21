@@ -1,4 +1,4 @@
-﻿import { NgModule } from '@angular/core';
+﻿import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -19,7 +19,11 @@ import { FilterStudentPipe } from './_pipes/filter-student.pipe';
 import { ReportComponent } from './_components/report/report.component';
 import { WorkTypeComponent } from './_components/accounting/groups/accounting/work-type/work-type.component';
 import { TimetableComponent } from './_components/timetable/timetable.component';
+import { KeycloakService } from './_services/keycloak/keycloak.service';
 
+export function kcFactory(kcService: KeycloakService) {
+    return () => kcService.init();
+}
 
 
 @NgModule({
@@ -47,7 +51,8 @@ import { TimetableComponent } from './_components/timetable/timetable.component'
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        { provide: APP_INITIALIZER, deps: [KeycloakService], useFactory: kcFactory, multi: true }
     ],
     bootstrap: [AppComponent]
 })

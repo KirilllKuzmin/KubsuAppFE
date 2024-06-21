@@ -1,6 +1,6 @@
 ﻿<!-- nav -->
 <div class="nav-panel">
-    <nav class="navbar navbar-expand-lg bg-white" *ngIf="user" adjustHeight>
+    <nav class="navbar navbar-expand-lg bg-white">
         <img src="/assets/img/kubsu2.jpg" class="img-fluid" style="width: 3%; margin-left: 10px;">
         <div class="navbar-nav">
             <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{ content.Home }}</a>
@@ -8,7 +8,7 @@
             <a class="nav-item nav-link" routerLink="/accounting/courses" routerLinkActive="active" *ngIf="isLecturer">{{ content.Accounting }}</a>
             <a class="nav-item nav-link" routerLink="/reports" routerLinkActive="active" *ngIf="isModerator">{{ content.Reports }}</a>
         </div>
-        <button class="btn btn-link nav-item nav-link" (click)="logout()">{{ user.username }}</button>
+        <button class="btn btn-link nav-item nav-link" (click)="logout()">logout{{ user?.username }}</button>
     </nav>
 </div>
 

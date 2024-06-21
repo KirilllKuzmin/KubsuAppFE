@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '@app/_services';
+import { KeycloakService } from '@app/_services/keycloak/keycloak.service';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -16,18 +17,21 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private keycloakService: KeycloakService
   ) {
     if (this.authenticationService.userValue) {
       this.router.navigate(['/']);
     }
   }
 
-  ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-    });
+  async ngOnInit() {
+    // this.loginForm = this.formBuilder.group({
+    //   username: ['', Validators.required],
+    //   password: ['', Validators.required],
+    // });
+    await this.keycloakService.init();
+    await this.keycloakService.login();
   }
 
   get f() {

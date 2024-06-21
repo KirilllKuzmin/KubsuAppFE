@@ -3,6 +3,7 @@ import { TranslationService } from './_services/translation.service';
 
 import { AuthenticationService } from './_services';
 import { User, Role } from './_models';
+import { KeycloakService } from './_services/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +17,11 @@ export class AppComponent {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private translationService: TranslationService
+    private translationService: TranslationService,
+    private keycloakService: KeycloakService
   ) {
     this.authenticationService.user.subscribe((x) => (this.user = x));
+    //this.keycloakService.keycloak.
   }
 
   ngOnInit() {
@@ -32,14 +35,14 @@ export class AppComponent {
   }
 
   get isLecturer() {
-    return this.user?.roles.includes(Role.Lecturer);
+    return this.user?.roles?.includes(Role.Lecturer);
   }
 
   get isModerator() {
-    return this.user?.roles.includes(Role.Moderator);
+    return this.user?.roles?.includes(Role.Moderator);
   }
 
   logout() {
-    this.authenticationService.logout();
+    this.keycloakService.logout();
   }
 }
